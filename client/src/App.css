@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.dashboardContainers {
+  height: 300px;
+  width: 500px;
+}
+
+.postContainer {
+  height: 750px;
+  width: 500px;
+}
+
+.incorrect {
+  color: red;
+}
+
+.correct {
+  color: green;
+}
+
+.wrapping {
+  width: 50px;
+}
