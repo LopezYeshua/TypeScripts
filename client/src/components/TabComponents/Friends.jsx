@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
     Container,
     Box, Button
@@ -7,10 +7,12 @@ import {
 import '../../static/css/avatars.css'
 import FriendNavItem from './FriendNavItem'
 import FriendContent from './FriendContent'
+import { LoggedinContext } from '../../context/LoggedinContext'
 
 const Friends = () => {
     const [users, setUsers] = useState([])
     const [activeTab, setActiveTab] = useState("")
+    const { loggedinInfo } = useContext(LoggedinContext)
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/users', {withCredentials: true})
@@ -20,6 +22,10 @@ const Friends = () => {
     
     const handleFriend = (e, user) => {
         e.preventDefault()
+        axios.put("http://localhost:8000/api/friends", 
+        {requesterId: loggedinInfo.loggedinId, recipientId: user._id})
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
 

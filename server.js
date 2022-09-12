@@ -15,6 +15,7 @@ app.use(express.json());
 
 // This is where we import the users routes function from our user.routes.js
 require('./server/routes/user.routes')(app);
+require('./server/routes/friends.routes')(app);
 // This will fire our mongoose.connect statement to initialize our database connection
 require('./server/config/mongoose.config');
 app.listen(8000, () => console.log(colors.america(`Listening on port: 8000`)) );
