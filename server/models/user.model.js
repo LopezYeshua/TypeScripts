@@ -18,7 +18,13 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "password is required"]
-    }
+    },
+    icon: {
+        type: String
+    },
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Friends'
+    }]
 }, { timestamps: true });
 
 UserSchema.virtual('confirmPassword')

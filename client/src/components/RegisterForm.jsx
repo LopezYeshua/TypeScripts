@@ -12,7 +12,7 @@ import axios from 'axios';
 import { LoggedinContext } from '../context/LoggedinContext'
 import jwt from 'jwt-decode'
 
-export default (props) => {
+const RegisterForm = (props) => {
     const {setLoggedinInfo} = useContext(LoggedinContext)
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
@@ -124,3 +124,4 @@ export default (props) => {
             </Paper>
     )
 }
+export default RegisterForm

@@ -1,17 +1,20 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-    Grid,
     Container,
     Paper,
-    Typography
+    Box
 } from '@mui/material'
-import Posts from '../components/Posts'
 import NavBar from '../components/NavBar'
 import { LoggedinContext } from '../context/LoggedinContext'
 import { useEffect } from 'react'
+import TypingSim from '../components/TypingSim'
+// import TypingSim2 from '../components/TypingSim2'
+import '../App.css'
+import "../static/css/Dashboard.css"
+import Friends from '../components/TabComponents/Friends'
 
-export default () => {
+const Dashboard = () => {
     const {loggedinInfo} = useContext(LoggedinContext)
     const navigate = useNavigate()
     
@@ -27,21 +30,24 @@ export default () => {
         
         <>
             <NavBar />
-            <Grid container spacing={5} sx={{ justifyContent: "center" }}>
-                <Grid item>
-                    <Paper elevation={7} sx={{ marginBottom: "150px" }} className="dashboardContainers">
-                        <Typography variant="h1">👍</Typography>
-                    </Paper>
-                    <Paper elevation={7} className="dashboardContainers">
-                        <Typography variant="h1">💩</Typography>
-                    </Paper>
-                </Grid>
-                <Grid item sx={{ margin: "auto 0" }}>
-                    <Paper elevation={7} className="postContainer">
-                        <Posts />
-                    </Paper>
-                </Grid>
-            </Grid>
+            <Box sx={{ width: "100vw"}}>
+                    <Container sx={{ marginTop: "1em"}} >
+                        <Paper 
+                            className="friends-people-list"
+                            sx={{ margin: "1em 0"}}
+                            elevation={10}>
+                                <Friends />
+                        </Paper>
+                        <Paper elevation={10}>
+                            <TypingSim />
+                        </Paper>
+                        {/* <Paper elevation={10}>
+                            <TypingSim2 />
+                        </Paper> */}
+                    </Container>
+            </Box>
         </>
     )
 }
+
+export default Dashboard

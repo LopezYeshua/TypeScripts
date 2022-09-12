@@ -59,12 +59,7 @@ module.exports.createUser = (req, res) => {
     User.create({
         username,
         email,
-        password,
-        posts: {
-            content,
-            wordsPerMinute,
-            charCount
-        }
+        password
     })
         .then(user => res.json(user))
         .catch(err => res.status(400).json(err));

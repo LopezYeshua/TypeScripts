@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 
 
-export default () => {
+const Logout = () => {
     const navigate = useNavigate()
     const {setLoggedinInfo} = useContext(LoggedinContext)
 
@@ -28,4 +28,5 @@ export default () => {
     return (
         <Button onClick={logout}>Logout</Button>
     )
-}
+} 
+export default Logout

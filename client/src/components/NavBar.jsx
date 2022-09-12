@@ -3,12 +3,13 @@ import {
     Link
 } from 'react-router-dom'
 import { 
-    Button
+    Typography
 } from '@mui/material'
 import Logout from './Logout'
 import { LoggedinContext } from '../context/LoggedinContext'
+import '../static/css/NavBar.css'
 
-export default () => {
+const NavBar = () => {
     const {loggedinInfo} = useContext(LoggedinContext)
 
     if (!loggedinInfo.loggedin) {
@@ -20,9 +21,17 @@ export default () => {
     }
     
     return (
-        <nav>
-            <Link to="/dashboard"><h1>Type Scripts</h1></Link>
+        <nav className="navbar">
+            <Link to="/dashboard">
+                <Typography
+                gutterBottom={false}
+                variant="p"
+                    sx={{ fontFamily: 'rubik',
+                    fontSize: "2vw"}}>Type Scripts</Typography>
+            </Link>
             <Logout />
         </nav>
     )
 }
+
+export default NavBar

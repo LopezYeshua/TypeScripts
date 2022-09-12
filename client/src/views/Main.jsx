@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-    Box,
     Container
 } from '@mui/material';
 import RegisterForm from '../components/RegisterForm';
@@ -8,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 import '../App.css';
 import NavBar from '../components/NavBar';
 
-export default () => {
+const Main = () => {
     return (
         <Container>
             <NavBar />
@@ -23,3 +22,5 @@ export default () => {
         </Container>
     )
 }
+
+export default Main

@@ -3,7 +3,6 @@ import './App.css';
 import {
   Routes,
   Route,
-  Link
 } from 'react-router-dom';
 import Dashboard from "./views/Dashboard";
 import Cookies from 'universal-cookie'
@@ -34,6 +33,7 @@ function App() {
 
   return (
     <>
+    {/* LoggedinInfo is used across all routes to hold the user login status */}
       <LoggedinContext.Provider value={{loggedinInfo, setLoggedinInfo}}>
           <Routes>
             <Route path="/" element={<Main />} />

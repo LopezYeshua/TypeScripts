@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react'
 import {
-    Paper,
     Grid,
     TextField,
-    Box,
     Container,
     Button
 } from '@mui/material'
@@ -11,7 +9,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { LoggedinContext } from '../context/LoggedinContext'
 
-export default () => {
+const LoginForm = () => {
     const {setLoggedinInfo} = useContext(LoggedinContext)
     const [user, setUser] = useState({
         email: "",
@@ -68,3 +66,4 @@ export default () => {
         </>
     )
 }
+export default LoginForm
