@@ -31,6 +31,7 @@ const Dashboard = () => {
     const pleaseLogin = ( isLogin ) => {
         setLoadLogin(isLogin)
     }
+    console.log(loggedinInfo.loggedinId)
 
     if (!loggedinInfo.loggedin) {
         return (
