@@ -5,16 +5,17 @@ const FriendNavItem = ({ id, user, activeTab, setActiveTab }) => {
     const handleTab = () => {
         setActiveTab(id)
     }
-    // const handleLeave = () => {
-    //     setActiveTab("")
-    // }
+
+    const donthandleTab = () => {
+        setActiveTab("")
+    }
 
     return (
-        <li  
-        onMouseOver={handleTab}
-        // onMouseLeave={handleLeave} 
+        <li
+        onClick={handleTab}
         className={`profile-icon ${user.icon} ${activeTab === id ? "active" : ""}`}>
         </li>
     )
 }
+
 export default FriendNavItem

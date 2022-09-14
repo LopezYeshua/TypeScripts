@@ -13,6 +13,12 @@ body {
     margin: 0;
 }
 
+.timer {
+    font-size: 3rem;
+    color: #76e4bd;
+    font-weight: bold;
+}
+
 .stats {
     border: 2px solid black;
     border-radius: .5rem;

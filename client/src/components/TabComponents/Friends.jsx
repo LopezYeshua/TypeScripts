@@ -11,8 +11,10 @@ import { LoggedinContext } from '../../context/LoggedinContext'
 
 const Friends = () => {
     const [users, setUsers] = useState([])
+    const [friends, setFriends] = useState([])
     const [activeTab, setActiveTab] = useState("")
     const { loggedinInfo } = useContext(LoggedinContext)
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/users', {withCredentials: true})
@@ -24,10 +26,18 @@ const Friends = () => {
         e.preventDefault()
         axios.put("http://localhost:8000/api/friends", 
         {requesterId: loggedinInfo.loggedinId, recipientId: user._id})
-        .then(res => console.log(res))
+        .then(res => {console.log(res)})
         .catch(err => console.log(err))
+        setCount(+1)
     }
 
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/allFriends/${loggedinInfo.loggedinId}`)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => console.log(err))
+    }, [count])
 
     return (
         <Container sx={{ display: "flex", gap: "1rem", padding: "5px"}}>

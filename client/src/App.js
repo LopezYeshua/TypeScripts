@@ -1,16 +1,47 @@
-import Main from "./views/Main";
+import Login from "./views/Login";
 import './App.css';
 import {
-  Routes,
-  Route,
+  Routes, Route
 } from 'react-router-dom';
+import {
+  useTheme,
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+  useMediaQuery,
+  CssBaseline
+} from '@mui/material'
+import { deepmerge } from '@mui/utils'
+import { getDesignTokens, getThemedComponents } from "./theme/Theme";
 import Dashboard from "./views/Dashboard";
 import Cookies from 'universal-cookie'
 import jwt from 'jwt-decode'
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { LoggedinContext } from './context/LoggedinContext'
+import { ColorModeContext } from './context/ColorModeContext'
+
 
 function App() {
+  const [mode, setMode] = useState()
+  const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)')
+
+  useEffect(() => {
+    setMode(prefersLightMode ? 'light' : 'dark')
+  }, [prefersLightMode])
+
+  const colorMode = useMemo(() => ({
+    toggleColorMode: () => {
+      setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+    }
+  }), []
+  )
+
+  let theme = useMemo(
+    () => 
+    createTheme(deepmerge(getDesignTokens(mode), getThemedComponents(mode))), [mode])
+
+  theme = responsiveFontSizes(theme)
+
 
   // initialize the login status on the jwt token
   const cookies = new Cookies();
@@ -35,10 +66,15 @@ function App() {
     <>
     {/* LoggedinInfo is used across all routes to hold the user login status */}
       <LoggedinContext.Provider value={{loggedinInfo, setLoggedinInfo}}>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
+          <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Dashboard />} />
+              </Routes>
+            </ThemeProvider>
+          </ColorModeContext.Provider>
       </LoggedinContext.Provider>
     </>
   );

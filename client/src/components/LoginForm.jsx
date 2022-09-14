@@ -3,7 +3,8 @@ import {
     Grid,
     TextField,
     Container,
-    Button
+    Button,
+    Paper
 } from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -32,7 +33,7 @@ const LoginForm = () => {
                 loggedinUsername : res.data.user.username,
                 loadingUser : false
             })
-            navigate("/dashboard")
+            navigate("/")
         })
         .catch(err => console.log(err))
     }
@@ -42,7 +43,7 @@ const LoginForm = () => {
     }
 
     return (
-        <>
+        <Paper>
             <Container sx={{display: "flex", justifyContent: "center"}}> 
                 <form onSubmit={handleLogin}>
                     <Grid container>
@@ -63,7 +64,7 @@ const LoginForm = () => {
                     <Button type="submit" variant="outlined">Login</Button>
                 </form>
             </Container>
-        </>
+        </Paper>
     )
 }
 export default LoginForm

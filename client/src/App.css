@@ -12,18 +12,6 @@
   width: 500px;
 }
 
-.incorrect {
-  color: red;
-}
-
-.correct {
-  color: green;
-}
-
 .wrapping {
   width: 50px;
-}
-
-.hero {
-  width: 90%;
 }

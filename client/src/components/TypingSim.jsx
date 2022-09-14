@@ -7,7 +7,7 @@ import {
     Container,
     Box,
     Button,
-    TextareaAutosize
+    TextField
 } from '@mui/material'
 import axios from 'axios'
 import '../static/css/typeSim.css'
@@ -55,6 +55,7 @@ const TypingSim = () => {
     // Starts the game on button click
     const startGame = (e) => {
         e.preventDefault()
+        ref.current.focus()
         renderQuote()
         setState({
             ...state,
@@ -64,16 +65,10 @@ const TypingSim = () => {
         setInput("")
         setStartTime(Date.now())
         setProgress(0)
-        ref.current.focus()
     }
 
     // Counts all pressed keys except shift and backspace.
-    const handleKeyDown = e => {
-        if (e.key !== "Backspace" && e.key !== "Shift") {
-            setCharCount(charCount + 1)
-        }
-    }
-
+    
     // c
     const handleChange = e => {
         e.preventDefault()
@@ -81,36 +76,41 @@ const TypingSim = () => {
         // stores the last letter of the user input
         const lastLetter = innputValue[innputValue.length - 1]
         const currentWord = words[0] // stores the current word        
-
+        
         if (lastLetter === " " || lastLetter === ".") {
             // checks if inputValue is equal to the current word
             if (innputValue.trim() === currentWord) {
-                 // cuts off the first word in the array of words
+                // cuts off the first word in the array of words
                 const newWords = [...words.slice(1)]
                 const newCompletedWords = [...completedWords, currentWord]
-
+                
                 const progress = (
                     newCompletedWords.length / 
                     (newWords.length + newCompletedWords.length)) * 100
-                console.log(progress)
-                setState({
-                    ...state,
-                    completed: newWords.length === 0,
-                })
-                setProgress(progress)
-                setCompletedWords(newCompletedWords)
-                setWords(newWords)
-                setInput("")
+                    console.log(progress)
+                    setState({
+                        ...state,
+                        completed: newWords.length === 0,
+                    })
+                    setProgress(progress)
+                    setCompletedWords(newCompletedWords)
+                    setWords(newWords)
+                    setInput("")
+                }
+            } else {
+                setInput(innputValue)
             }
-        } else {
-            setInput(innputValue)
         }
-    }
-
-    // When loaded, this hook will run and calulate the current words per minute.
-    useEffect(() => {
-        if (loaded) {
-            setTimeout(() => {
+        
+        const handleKeyDown = e => {
+            if (e.key !== "Backspace" && e.key !== "Shift") {
+                setCharCount(charCount + 1)
+            }
+        }
+        // When loaded, this hook will run and calulate the current words per minute.
+        useEffect(() => {
+            if (loaded) {
+                setTimeout(() => {
                 // grabs the currenttime
                 const now = Date.now()
                 // difference between time now and time when the game started.
@@ -207,19 +207,23 @@ const TypingSim = () => {
                     })}
                 </p>
             </Box>
-            <TextareaAutosize 
+            <TextField 
             type="input" 
             value={input} 
-            name="inputValue" 
+            name="inputValue"
+            multiline
+            rows={2}
+            sx={{
+                width: "100%"
+            }}
             onChange={handleChange} 
             onKeyDown={handleKeyDown}
-            className="quote-input" ref={ref}></TextareaAutosize>
-
+            inputRef={ref}/>
             <Container>
                 <Button 
                     type="submit" 
                     variant="outlined"
-                    onClick={startGame} 
+                    onClick={startGame}
                     className="btn">
                         Start
                 </Button>

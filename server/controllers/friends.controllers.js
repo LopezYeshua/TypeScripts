@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { Friends } = require('../models/friends.model');
+const Friends  = require('../models/friends.model');
 const { User } = require('../models/user.model')
 
 
@@ -7,14 +7,13 @@ module.exports.addFriend = async (req, res) => {
     const {requesterId, recipientId} = req.body
     let UserA = mongoose.Types.ObjectId(requesterId)
     let UserB = mongoose.Types.ObjectId(recipientId)
-    console.log(UserA)
-    const docA = Friends.findOneAndUpdate(
+    const docA = await Friends.findOneAndUpdate(
         { requester: UserA, recipient: UserB },
-        { $set: { status: 1 } },
+        { $set: {
+            status: 1
+        }},
         { upsert: true, new: true }
     )
-    .then(res => console.log(res))
-    console.log(docA)
     const docB = await Friends.findOneAndUpdate(
         { recipient: UserA, requester: UserB },
         { $set: { status: 2 } },
@@ -64,14 +63,14 @@ module.exports.rejectFriend = async (res, req) => {
     )
 }
 
-module.exports.getFriends = async (res, req) => {
-    const { userId } = req.body
+module.exports.getFriends = async (req, res) => {
+    const  userId = req.params
     let id = mongoose.Types.ObjectId(userId)
-    let user = User.aggregate([
+    let user = await User.aggregate([
         {
             "$lookup": {
-                "from": Friends.collection.name,
-                "let": { "friends": "$friends" },
+                "from": "friends", //collection name
+                "let": { "friends": "$friends" }, // set variable
                 "pipeline": [
                     {
                         "$match": {
@@ -81,7 +80,7 @@ module.exports.getFriends = async (res, req) => {
                     },
                     { "$project": { "status": 1 } }
                 ],
-                "as": "friends"
+                "as": "friends" // output array field
             }
         },
         {
@@ -89,11 +88,8 @@ module.exports.getFriends = async (res, req) => {
                 "friendsStatus": {
                     "$ifNull": [{ "$min": "$friends.status" }, 0]
                 }
-            }
+            },
         }
     ])
-
-    res.json({
-        user
-    })
+    res.json({user})
 }
