@@ -23,6 +23,7 @@ const TypingSim = () => {
         completed: false,
     })
     const [charCount, setCharCount] = useState(0)
+    const [errorCount, setErrorCount] = useState(0)
     const [timeElapsed, setTimeElapsed] = useState(0)
     const [startTime, setStartTime] = useState(undefined)
     const [wpm, setWpm] = useState(0)
@@ -106,6 +107,9 @@ const TypingSim = () => {
             if (e.key !== "Backspace" && e.key !== "Shift") {
                 setCharCount(charCount + 1)
             }
+            if (e.key === "Backspace" && input.length > 0) {
+                setErrorCount(errorCount + 1)
+            }
         }
         // When loaded, this hook will run and calulate the current words per minute.
         useEffect(() => {
@@ -157,6 +161,7 @@ const TypingSim = () => {
         setInput("")
         setProgress(0)
     }
+
 
     return (
         <Container sx={{ padding: "5px" }}>

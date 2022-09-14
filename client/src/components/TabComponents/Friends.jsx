@@ -14,13 +14,6 @@ const Friends = () => {
     const [friends, setFriends] = useState([])
     const [activeTab, setActiveTab] = useState("")
     const { loggedinInfo } = useContext(LoggedinContext)
-    const [count, setCount] = useState(0)
-
-    useEffect(() => {
-        axios.get('http://localhost:8000/api/users', {withCredentials: true})
-        .then(res => setUsers(res.data))
-        .catch(err => console.log(err))
-    }, [])
     
     const handleFriend = (e, user) => {
         e.preventDefault()
@@ -28,16 +21,27 @@ const Friends = () => {
         {requesterId: loggedinInfo.loggedinId, recipientId: user._id})
         .then(res => {console.log(res)})
         .catch(err => console.log(err))
-        setCount(+1)
     }
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/allFriends/${loggedinInfo.loggedinId}`)
         .then(res => {
-            console.log(res.data)
+            let users = res.data.user
+            let friends = [] // stores users friends
+            users.map((user, index) => {
+                if (user.friendsStatus === 1 ||
+                    user.friendsStatus === 2 || 
+                    user.friendsStatus === 3
+                    ) {
+                    friends.push(user) //
+                    users.pop(user)
+                }
+            })
+            setFriends(friends)
+            setUsers(users)
         })
         .catch(err => console.log(err))
-    }, [count])
+    })
 
     return (
         <Container sx={{ display: "flex", gap: "1rem", padding: "5px"}}>
@@ -52,7 +56,9 @@ const Friends = () => {
                         </ul>
                         <FriendContent id={user._id} activeTab={activeTab}>
                             <p>{user.username}</p>
-                            <Button onClick={(e) => handleFriend(e, user)}>Add Friend</Button>
+                            {user._id === loggedinInfo.loggedinId ? "" :<Button onClick={(e) => handleFriend(e, user)}>Add Friend</Button>}
+                            {user.friendStatus === 1 ? <Button>Requested</Button> : ""}
+                            {user.friendStatus === 2 ? <Button>Pending</Button> : ""}
                         </FriendContent>
                     </Box>
                 )

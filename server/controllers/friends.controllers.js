@@ -64,6 +64,7 @@ module.exports.rejectFriend = async (res, req) => {
 }
 
 module.exports.userFriends = async (req, res) => {
+    // fix to not collect user passwords.
     const  userId = req.params
     let id = mongoose.Types.ObjectId(userId)
     let user = await User.aggregate([
@@ -74,7 +75,7 @@ module.exports.userFriends = async (req, res) => {
                 "pipeline": [
                     {
                         "$match": {
-                            "requester": mongoose.Types.ObjectId(id),
+                            "recipient": mongoose.Types.ObjectId(id),
                             "$expr": { "$in": ["$_id", "$$friends"] }
                         }
                     },
@@ -91,21 +92,5 @@ module.exports.userFriends = async (req, res) => {
             },
         }
     ])
-    res.json({user})
-}
-
-module.exports.allFriends = async (req, res) => {
-    let user = await User.aggregate([
-        {
-            $lookup: {
-                from: "friends",
-                localField: "_id",
-                foreignField: "recipient",
-                as: "friends"
-            }
-            
-        }
-    ])
-
     res.json({user})
 }

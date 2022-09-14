@@ -13,18 +13,20 @@ import { useTheme } from '@mui/material/styles'
 import Logout from './Logout'
 import { LoggedinContext } from '../context/LoggedinContext'
 import '../static/css/NavBar.css'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 const NavBar = (props) => {
     const [login, setLogin] = useState(false)
     const {loggedinInfo} = useContext(LoggedinContext)
     const navigate = useNavigate()
     const theme = useTheme()
+
     const handleClick = () => {
         setLogin(true)
         props.login( login )
         navigate('/login')
     }
-
     
     return (
         <ThemeProvider theme={theme}>
@@ -34,6 +36,9 @@ const NavBar = (props) => {
                     gutterBottom={false}
                     variant="h5">
                         We Scripts
+                    </Typography>
+                    <Typography>
+                        Welcome {loggedinInfo.loggedinUsername}
                     </Typography>
                 </Link>
                 {loggedinInfo.loggedin ? 

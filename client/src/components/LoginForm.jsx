@@ -25,7 +25,7 @@ const LoginForm = () => {
             password: user.password
         }, { withCredentials: true })
         .then(res => {
-            console.log(res.data)
+            console.log(res.data.user.username)
             const token = res.data.userToken
             setLoggedinInfo({
                 loggedin : true,

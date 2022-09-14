@@ -11,9 +11,10 @@ import {
 import axios from 'axios';
 import { LoggedinContext } from '../context/LoggedinContext'
 import jwt from 'jwt-decode'
+import { useEffect } from 'react';
 
 const RegisterForm = () => {
-    const {setLoggedinInfo} = useContext(LoggedinContext)
+    const {loggedinInfo, setLoggedinInfo} = useContext(LoggedinContext)
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
     const [user, setUser] = useState({
@@ -34,18 +35,18 @@ const RegisterForm = () => {
             icon: "smiley"
         }, { withCredentials: true })
         .then(res => {
-            console.log(res.data)
-            const token = res.data.userToken;
-            console.log(jwt(token))
-
-            // sets the login info of the user through the context
             setLoggedinInfo({
                 loggedin: true,
                 loggedinId: res.data.user_id,
                 loggedInUsername: res.data.user.username,
                 loadingUser: false
             })
-            navigate("/")
+            console.log(res.data)
+            const token = res.data.userToken;
+            console.log(jwt(token))
+
+            // navigate("/")
+            // sets the login info of the user through the context
         })
         .catch(err => {
             const errorResponse = err.response.data.errors;
