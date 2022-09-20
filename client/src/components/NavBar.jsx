@@ -2,45 +2,45 @@ import React, { useContext, useState } from 'react'
 import {
     Link as LinkRouter, useNavigate
 } from 'react-router-dom'
-import { 
+import {
     Typography,
     Button,
     ThemeProvider,
     Container,
-    Link
+    Link,
+    Box
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Logout from './Logout'
 import { LoggedinContext } from '../context/LoggedinContext'
 import '../static/css/NavBar.css'
-import { useEffect } from 'react'
-import axios from 'axios'
+import ThemeToggler from './ThemeToggler'
 
 const NavBar = (props) => {
+    const { loggedinUsername } = props
     const [login, setLogin] = useState(false)
     const {loggedinInfo} = useContext(LoggedinContext)
     const navigate = useNavigate()
     const theme = useTheme()
 
     const handleClick = () => {
-        setLogin(true)
-        props.login( login )
         navigate('/login')
     }
     
     return (
         <ThemeProvider theme={theme}>
-            <Container sx={{ justifyContent: "space-between", display: "flex", marginTop: "10px"}}>
+            <Container sx={{ justifyContent: "space-between", display: "flex"}}>
                 <Link component={LinkRouter} to="/">
                     <Typography
                     gutterBottom={false}
                     variant="h5">
-                        We Scripts
+                        WeScripts
                     </Typography>
                     <Typography>
-                        Welcome {loggedinInfo.loggedinUsername}
+                        Welcome {loggedinUsername}
                     </Typography>
                 </Link>
+                <ThemeToggler />
                 {loggedinInfo.loggedin ? 
                 <Logout /> : 
                 <Button onClick={handleClick}>Login</Button>}

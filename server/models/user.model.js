@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
         validate: {
             validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
             message: "Please enter a valid email"
-        }
+        },
+        unique: [true, "must be a unique email"]
     },
     password: {
         type: String,
@@ -24,6 +25,10 @@ const UserSchema = new mongoose.Schema({
     },
     friends: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Friends'
+    }],
+    scores: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Scores'
     }]
 }, { timestamps: true });
 

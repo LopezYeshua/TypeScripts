@@ -1,4 +1,4 @@
-import { amber, deepOrange, deepPurple, grey, blue, common } from '@mui/material/colors';
+import { amber, deepPurple, grey, blue, common } from '@mui/material/colors';
 
 
 const palette = {
@@ -11,9 +11,9 @@ const palette = {
     },
     dark: {
         primary: {
-            main: '#5A458F',
-            light: '#F54A05',
-            dark: '#610600'
+            main: '#90caf9',
+            light: '#e3f2fd',
+            dark: '#42a5f5'
         }
     }
 }
@@ -27,13 +27,7 @@ export const getDesignTokens = (mode) => ({
                     main: palette.light.primary.main,
                     light: palette.light.primary.light,
                     dark: palette.light.primary.dark,
-                },
-
-                divider: amber[200],
-                text: {
-                    primary: common.black,
-                    secondary: grey[800],
-                },
+                }
             }
             : {
                 primary: {
@@ -41,15 +35,9 @@ export const getDesignTokens = (mode) => ({
                     light: palette.dark.primary.light,
                     dark: palette.dark.primary.dark,
                 },
-                divider: deepPurple[700],
                 background: {
-                    default: '#00193B',
-                    paper: '#808EF2',
-                },
-                text: {
-                    primary: common.white,
-                    secondary: '#FA6605',
-                },
+                    default: "#0a1929"
+                }
             }),
     },
     typography: {
@@ -76,6 +64,14 @@ export const getThemedComponents = (mode) => ({
                             backgroundColor: grey[800],
                         },
                     },
+                },
+                MuiPaper: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: ".5rem",
+                            padding: "20px 0"
+                        }
+                    }
                 },
                 MuiTextField: {
                     styleOverrides: {
@@ -167,6 +163,24 @@ export const getThemedComponents = (mode) => ({
                         },
                     },
                 },
+                MuiPaper: {
+                    styleOverrides: {
+                        root: {
+                            // border: `4px solid #ff1178`,
+                            border: `3px solid #000B6B`,
+                            background: "#001C41",
+                            borderRadius: ".5rem",
+                            padding: "20px 0"
+                        }
+                    }
+                },
+                MuiTextField: {
+                    styleOverrides: {
+                        root: {
+                            margin: "10px 0"
+                        }
+                    }
+                },
                 MuiLink: {
                     styleOverrides: {
                         root: {
@@ -206,7 +220,7 @@ export const getThemedComponents = (mode) => ({
                         {
                             props: { variant: 'outlined' },
                             style: {
-                                color: palette.light.primary.main,
+                                color: "white",
                             },
                         },
                         {

@@ -18,7 +18,7 @@ const Main = () => {
     return (
         <ThemeProvider theme={theme}>
             <Container>
-                <Typography variant="h4"><Link component={RouterLink} to="/">TypeScripts</Link></Typography>
+                <Typography variant="h4"><Link component={RouterLink} to="/">We Scripts</Link></Typography>
                 <Container sx={{textAlign: "center"}}>
                     <h1>Register</h1>
                     <RegisterForm />

@@ -1,64 +1,128 @@
-import axios from 'axios'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     Container,
     Box, Button
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import '../../static/css/avatars.css'
 import FriendNavItem from './FriendNavItem'
 import FriendContent from './FriendContent'
 import { LoggedinContext } from '../../context/LoggedinContext'
 
-const Friends = () => {
-    const [users, setUsers] = useState([])
-    const [friends, setFriends] = useState([])
+const Friends = (props) => {
+    const { friends, loggedInUser, users, onPropFriend, onPropAcceptFriend, onPropRejectFriend, requested, pending } = props
     const [activeTab, setActiveTab] = useState("")
     const { loggedinInfo } = useContext(LoggedinContext)
-    
-    const handleFriend = (e, user) => {
+    const navigate = useNavigate()
+
+    const addFriend = (e, user) => {
         e.preventDefault()
-        axios.put("http://localhost:8000/api/friends", 
-        {requesterId: loggedinInfo.loggedinId, recipientId: user._id})
-        .then(res => {console.log(res)})
-        .catch(err => console.log(err))
+        onPropFriend(user)
     }
 
-    useEffect(() => {
-        axios.get(`http://localhost:8000/api/allFriends/${loggedinInfo.loggedinId}`)
-        .then(res => {
-            let users = res.data.user
-            let friends = [] // stores users friends
-            users.map((user, index) => {
-                if (user.friendsStatus === 1 ||
-                    user.friendsStatus === 2 || 
-                    user.friendsStatus === 3
-                    ) {
-                    friends.push(user) //
-                    users.pop(user)
-                }
-            })
-            setFriends(friends)
-            setUsers(users)
-        })
-        .catch(err => console.log(err))
-    })
+    const acceptFriend = (e, user) => {
+        e.preventDefault()
+        onPropAcceptFriend(user)
+    }
+
+    const rejectFriend = (e, user) => {
+        e.preventDefault()
+        onPropRejectFriend(user)
+    }
+
+    const userProfile = (e, userId) => {
+        e.preventDefault()
+        navigate(`/${userId}`)
+    }
+
+    const beefIt = (e, userId) => {
+        e.preventDefault()
+        navigate(`/beefit/${userId}`)
+    }
 
     return (
-        <Container sx={{ display: "flex", gap: "1rem", padding: "5px"}}>
-            {users?.map((user, index) => {
+        <Container sx={{ display: "flex", gap: "1rem", padding: "5px" }}>
+            <Box>
+                <ul className="nav">
+                    <FriendNavItem
+                        user={loggedInUser}
+                        id={loggedInUser?._id}
+                        setActiveTab={setActiveTab} />
+                    <p>{loggedInUser?.username}</p>
+                </ul>
+                <FriendContent id={loggedInUser?._id} activeTab={activeTab}>
+                    <Button onClick={(e) => userProfile(e, loggedinInfo.loggedinId)} variant="outlined">Go to profile</Button>
+                </FriendContent>
+            </Box>
+            {friends.map((friend, index) => {
                 return (
-                    <Box key={ index }>
+                    <Box key={index}>
                         <ul className="nav">
-                            <FriendNavItem 
+                            <FriendNavItem
+                                user={friend}
+                                id={friend._id}
+                                setActiveTab={setActiveTab} />
+                            <p>{friend.username}</p>
+                        </ul>
+                        <FriendContent id={friend._id} activeTab={activeTab}>
+                            <Button variant="outlined" onClick={(e) => beefIt(e, friend._id)}>Beefit!</Button>
+                            <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
+                            <Button variant="outlined" onClick={(e) => rejectFriend(e, friend)}>Unfriend</Button>
+                            
+                        </FriendContent>
+                    </Box>
+                )
+            })}
+            {requested.map((friend, index) => {
+                return (
+                    <Box key={index}>
+                        <ul className="nav">
+                            <FriendNavItem
+                                user={friend}
+                                id={friend._id}
+                                setActiveTab={setActiveTab} />
+                            <p>{friend.username}</p>
+                        </ul>
+                        <FriendContent id={friend._id} activeTab={activeTab}>
+                            <Button variant="outlined" onClick={(e) => beefIt(e, friend._id)}>Beefit!</Button>
+                            <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
+                            <Button variant="outlined" onClick={(e) => acceptFriend(e, friend)}>Requested</Button>
+                        </FriendContent>
+                    </Box>
+                )
+            })}
+            {pending.map((friend, index) => {
+                return (
+                    <Box key={index}>
+                        <ul className="nav">
+                            <FriendNavItem
+                                user={friend}
+                                id={friend._id}
+                                setActiveTab={setActiveTab} />
+                            <p>{friend.username}</p>
+                        </ul>
+                        <FriendContent id={friend._id} activeTab={activeTab}>
+                            <Button variant="outlined" onClick={(e) => beefIt(e, friend._id)}>Beefit!</Button>
+                            <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
+                            <Button variant="outlined" disabled>Pending</Button>
+                        </FriendContent>
+                    </Box>
+                )
+            })}
+            {users.map((user, index) => {
+                return (
+                    <Box key={index}>
+                        <ul className="nav">
+                            <FriendNavItem
                                 user={user}
                                 id={user._id}
-                                setActiveTab={setActiveTab}/>
+                                setActiveTab={setActiveTab} />
+                            <p>{user.username}</p>
                         </ul>
                         <FriendContent id={user._id} activeTab={activeTab}>
-                            <p>{user.username}</p>
-                            {user._id === loggedinInfo.loggedinId ? "" :<Button onClick={(e) => handleFriend(e, user)}>Add Friend</Button>}
-                            {user.friendStatus === 1 ? <Button>Requested</Button> : ""}
-                            {user.friendStatus === 2 ? <Button>Pending</Button> : ""}
+                            <Button variant="outlined" onClick={(e) => beefIt(e, user._id)}>Beefit!</Button>
+                            <Button variant="outlined" onClick={(e) => userProfile(e, user._id)}>Visit Profile</Button>
+                            <Button variant="outlined" onClick={(e) => addFriend(e, user)}>Add Friend</Button>
                         </FriendContent>
                     </Box>
                 )

@@ -13,7 +13,7 @@ const FriendNavItem = ({ id, user, activeTab, setActiveTab }) => {
     return (
         <li
         onClick={handleTab}
-        className={`profile-icon ${user.icon} ${activeTab === id ? "active" : ""}`}>
+        className={`profile-icon ${user?.icon} ${activeTab === id ? "active" : ""}`}>
         </li>
     )
 }

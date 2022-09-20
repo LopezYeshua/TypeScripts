@@ -1,23 +1,25 @@
-// const { response } = require('express');
 const { User } = require('../models/user.model');
 const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken')
 
-module.exports.register = (req, res) => {
-    User.create(req.body)
+module.exports.register = async (req, res) => {
+    await User.create(req.body)
     .then(user => {
         const userToken = jwt.sign({
             id: user._id
         }, process.env.SECRET_KEY);
-            res
-                .cookie("usertoken", userToken, process.env.SECRET_KEY,{
-                    httpOnly: true
-                })
-                .json({ msg: "success!", user: user, userToken: userToken });
+        res
+        .cookie("usertoken", userToken, process.env.SECRET_KEY,{
+            httpOnly: true
         })
-        .catch(err => res.json(err));
+        .json({ msg: "success!", user: user, userToken: userToken });
+    })
+    .catch(err => {
+        res.status(400).json(err)
+    });
 }
+
 
 module.exports.login = async (req, res) => {
     const user = await User.findOne({ email: req.body.email });

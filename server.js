@@ -1,6 +1,6 @@
 const express = require('express');
-const cors = require('cors')
 const app = express();
+const cors = require('cors')
 const cookieParser = require('cookie-parser');
 const colors = require('colors')
 colors.enable()
@@ -16,6 +16,17 @@ app.use(express.json());
 // This is where we import the users routes function from our user.routes.js
 require('./server/routes/user.routes')(app);
 require('./server/routes/friends.routes')(app);
+require('./server/routes/scores.routes')(app);
 // This will fire our mongoose.connect statement to initialize our database connection
 require('./server/config/mongoose.config');
-app.listen(8000, () => console.log(colors.america(`Listening on port: 8000`)) );
+const server = app.listen(8000, () => console.log(colors.america(`Listening on port: 8000`)) );
+const io = require('socket.io')(server, {cors: true})
+
+io.on("connection", socket => {
+    console.log(socket.id)
+
+    socket.on("event_from_client", data => {
+        socket.broadcast.emit("send_data_to_all_other_clients", data)
+    })
+
+})

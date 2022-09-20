@@ -9,9 +9,7 @@ module.exports.addFriend = async (req, res) => {
     let UserB = mongoose.Types.ObjectId(recipientId)
     const docA = await Friends.findOneAndUpdate(
         { requester: UserA, recipient: UserB },
-        { $set: {
-            status: 1
-        }},
+        { $set: {status: 1}},
         { upsert: true, new: true }
     )
     const docB = await Friends.findOneAndUpdate(
@@ -26,31 +24,31 @@ module.exports.addFriend = async (req, res) => {
     const updateUserB = await User.findOneAndUpdate(
         { _id: UserB },
         { $push: { friends: docB._id } }
-    )
+    ).then(status => res.json(status))
 }
 
 module.exports.acceptFriend = async (req, res) => {
     const {requesterId, recipientId} = req.body
     let UserA = mongoose.Types.ObjectId(requesterId)
     let UserB = mongoose.Types.ObjectId(recipientId)
-    Friends.findOneAndUpdate(
+    await Friends.findOneAndUpdate(
         { requester: UserA, recipient: UserB },
         { $set: { status: 3 } }
     )
-    Friends.findOneAndUpdate(
+    await Friends.findOneAndUpdate(
         { recipient: UserA, requester: UserB },
         { $set: { status: 3 } }
-    )
+    ).then(status => res.json(status))
 }
 
-module.exports.rejectFriend = async (res, req) => {
-    const {requesterId, recipientId} = req.body
+module.exports.rejectFriend = async (req, res) => {
+    const {requesterId, recipientId} = req.params
     let UserA = mongoose.Types.ObjectId(requesterId)
     let UserB = mongoose.Types.ObjectId(recipientId)
-    const docA = await Friends.findOneAndRemove(
+    const docA = await Friends.findOneAndDelete(
         { requester: UserA, recipient: UserB }
     )
-    const docB = await Friends.findOneAndRemove(
+    const docB = await Friends.findOneAndDelete(
         { recipient: UserA, requester: UserB }
     )
     const updateUserA = await User.findOneAndUpdate(
@@ -60,7 +58,7 @@ module.exports.rejectFriend = async (res, req) => {
     const updateUserB = await User.findOneAndUpdate(
         { _id: UserB },
         { $pull: { friends: docB._id } }
-    )
+    ).then(status => res.json(status))
 }
 
 module.exports.userFriends = async (req, res) => {

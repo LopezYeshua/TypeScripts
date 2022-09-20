@@ -19,6 +19,8 @@ import jwt from 'jwt-decode'
 import { useState, useMemo, useEffect } from 'react'
 import { LoggedinContext } from './context/LoggedinContext'
 import { ColorModeContext } from './context/ColorModeContext'
+import UserProfile from "./views/UserProfile";
+import Beefit from "./components/Beefit";
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
 
   const colorMode = useMemo(() => ({
     toggleColorMode: () => {
-      setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+      setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light')) // setMode will return the previous
     }
   }), []
   )
@@ -48,6 +50,7 @@ function App() {
   const token = cookies.get('usertoken');
   let tempLoggedIn = false;
   let tempLoggedInId = null;
+  let tempLoggedInUsername = null
   if (token) { // if token exists, continue
     if (jwt(token).id) { // if token has id, continue
       tempLoggedIn = true;
@@ -58,7 +61,7 @@ function App() {
   const [loggedinInfo, setLoggedinInfo] = useState({
     loggedin :tempLoggedIn,
     loggedinId : tempLoggedInId,
-    loggedinUsername : null,
+    loggedinUsername : tempLoggedInUsername,
     loadingUser: false
   })
 
@@ -72,6 +75,8 @@ function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/:id" element={<UserProfile />} />
+                <Route path="/beefit/:id" element={<Beefit />} />
               </Routes>
             </ThemeProvider>
           </ColorModeContext.Provider>

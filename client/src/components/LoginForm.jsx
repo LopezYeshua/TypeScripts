@@ -55,7 +55,8 @@ const LoginForm = () => {
                             label="email"/>
                         </Grid>
                         <Grid item>
-                            <TextField 
+                            <TextField
+                            type="password"
                             name="password"
                             onChange={handleChange}
                             label="password"/>
