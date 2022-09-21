@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
-const colors = require('colors')
+const colors = require('colors');
+const { users } = require('./server/data/users');
 colors.enable()
 require('dotenv').config();
 
@@ -22,11 +23,19 @@ require('./server/config/mongoose.config');
 const server = app.listen(8000, () => console.log(colors.america(`Listening on port: 8000`)) );
 const io = require('socket.io')(server, {cors: true})
 
-io.on("connection", socket => {
+io.on("connection", (socket, room) => {
     console.log(socket.id)
 
-    socket.on("event_from_client", data => {
-        socket.broadcast.emit("send_data_to_all_other_clients", data)
+    socket.on("user connected", (user) => {
+        users.push(user)
+        console.log(users.length)
     })
 
+    socket.on("host room", (roomName, cb) => {
+        console.log(roomName)
+        socket.join(roomName)
+    })
+
+    socket.emit("all users connected", () => {
+    })
 })

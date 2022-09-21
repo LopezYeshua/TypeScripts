@@ -76,7 +76,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/:id" element={<UserProfile />} />
-                <Route path="/beefit/:id" element={<Beefit />} />
+                <Route path="/beefit/:roomID" element={<Beefit />} />
               </Routes>
             </ThemeProvider>
           </ColorModeContext.Provider>

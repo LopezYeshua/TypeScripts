@@ -13,7 +13,7 @@ import BarChart from '../../components/GraphComponents/BarChart'
 import { LoggedinContext } from '../../context/LoggedinContext'
 
 const UserNav = ({ user, perDayData }) => {
-    const [activeTab, setActiveTab] = useState("")
+    const [activeTab, setActiveTab] = useState(0)
     const { loggedinInfo } = useContext(LoggedinContext)
 
     const stickContainer = {

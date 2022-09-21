@@ -15,7 +15,7 @@ import '../static/css/typeSim.css'
 import '../App.css'
 import { LoggedinContext } from '../context/LoggedinContext'
 
-const TypingSim = () => {
+const TypingSim = ({opponentProgress, p2Loaded}) => {
     const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
     const [loaded, setLoaded] = useState(false)
     const [state, setState] = useState({
@@ -36,7 +36,6 @@ const TypingSim = () => {
     const [avgWpm, setAvgWpm] = useState(0)
     const ref = useRef(null) // used to set autofocus
     const { loggedinInfo } = useContext(LoggedinContext)
-
 
     // Pulls quote from API
     const renderQuote = () => {
@@ -182,6 +181,7 @@ const TypingSim = () => {
                 <p>Average WPM: {avgWpm}</p>
             </Container>
             <progress value={progress} max="100" />
+            { p2Loaded && <progress value={opponentProgress} max="100" />}
             <Box sx={{ padding: "1em" }}>
                 <p className="text">
                     {loaded && state.quote?.split(" ").map((word, w_idx) => {

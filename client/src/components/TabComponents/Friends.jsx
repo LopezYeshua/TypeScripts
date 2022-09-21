@@ -35,10 +35,7 @@ const Friends = (props) => {
         navigate(`/${userId}`)
     }
 
-    const beefIt = (e, userId) => {
-        e.preventDefault()
-        navigate(`/beefit/${userId}`)
-    }
+    
 
     return (
         <Container sx={{ display: "flex", gap: "1rem", padding: "5px" }}>
@@ -65,10 +62,8 @@ const Friends = (props) => {
                             <p>{friend.username}</p>
                         </ul>
                         <FriendContent id={friend._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => beefIt(e, friend._id)}>Beefit!</Button>
                             <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
                             <Button variant="outlined" onClick={(e) => rejectFriend(e, friend)}>Unfriend</Button>
-                            
                         </FriendContent>
                     </Box>
                 )
@@ -84,7 +79,6 @@ const Friends = (props) => {
                             <p>{friend.username}</p>
                         </ul>
                         <FriendContent id={friend._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => beefIt(e, friend._id)}>Beefit!</Button>
                             <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
                             <Button variant="outlined" onClick={(e) => acceptFriend(e, friend)}>Requested</Button>
                         </FriendContent>
@@ -102,7 +96,6 @@ const Friends = (props) => {
                             <p>{friend.username}</p>
                         </ul>
                         <FriendContent id={friend._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => beefIt(e, friend._id)}>Beefit!</Button>
                             <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
                             <Button variant="outlined" disabled>Pending</Button>
                         </FriendContent>
@@ -120,7 +113,6 @@ const Friends = (props) => {
                             <p>{user.username}</p>
                         </ul>
                         <FriendContent id={user._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => beefIt(e, user._id)}>Beefit!</Button>
                             <Button variant="outlined" onClick={(e) => userProfile(e, user._id)}>Visit Profile</Button>
                             <Button variant="outlined" onClick={(e) => addFriend(e, user)}>Add Friend</Button>
                         </FriendContent>
