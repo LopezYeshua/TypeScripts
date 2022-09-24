@@ -6,10 +6,6 @@ const FriendNavItem = ({ id, user, activeTab, setActiveTab }) => {
         setActiveTab(id)
     }
 
-    const donthandleTab = () => {
-        setActiveTab("")
-    }
-
     return (
         <li
         onClick={handleTab}

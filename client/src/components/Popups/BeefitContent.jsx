@@ -8,7 +8,7 @@ import {
     Box
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom' 
-const BeefitContent = ({ isVisible, togglePopup }) => {
+const BeefitContent = ({ username, isVisible, togglePopup }) => {
     const [buttonAction, setButtonAction] = useState(0)
     const [roomID, setRoomID] = useState("")
     const navigate = useNavigate()
@@ -16,7 +16,9 @@ const BeefitContent = ({ isVisible, togglePopup }) => {
     const sendRoom = () => {
         if (roomID.length < 4) return null
         navigate(`/beefit/${roomID}`)
-    } 
+    }
+
+
     return (
 
         <>
@@ -25,13 +27,13 @@ const BeefitContent = ({ isVisible, togglePopup }) => {
                     <>
                         <Typography variant="h3">BeefIt!</Typography>
                         <Typography>
-                            BeefIt is where you compete with friends on games like WeScripts and TicTacToe
+                            BeefIt is where you compete with friends on games like WeScripts
                         </Typography>
                         {buttonAction === 0 && 
                         <ButtonGroup variant="outlined">
                             <Button onClick={() => setButtonAction(2)}>Join</Button>
                             <Button onClick={() => setButtonAction(1)}>Host</Button>
-                            <Button disabled>Random</Button>
+                            {/* <Button disabled>Random</Button> */}
                         </ButtonGroup>
                         }
                         {buttonAction === 1 &&

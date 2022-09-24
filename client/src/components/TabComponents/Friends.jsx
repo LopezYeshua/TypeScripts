@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react'
 import {
     Container,
-    Box, Button
+    Box, Button,
+    ButtonGroup
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import '../../static/css/avatars.css'
@@ -38,7 +39,7 @@ const Friends = (props) => {
     
 
     return (
-        <Container sx={{ display: "flex", gap: "1rem", padding: "5px" }}>
+        <Container onMouseLeave={() => setActiveTab("")} sx={{ display: "flex", gap: "1rem", padding: "5px" }}>
             <Box>
                 <ul className="nav">
                     <FriendNavItem
@@ -48,7 +49,7 @@ const Friends = (props) => {
                     <p>{loggedInUser?.username}</p>
                 </ul>
                 <FriendContent id={loggedInUser?._id} activeTab={activeTab}>
-                    <Button onClick={(e) => userProfile(e, loggedinInfo.loggedinId)} variant="outlined">Go to profile</Button>
+                    <Button onClick={(e) => userProfile(e, loggedinInfo.loggedinId)} variant="contained">Go to profile</Button>
                 </FriendContent>
             </Box>
             {friends.map((friend, index) => {
@@ -62,8 +63,10 @@ const Friends = (props) => {
                             <p>{friend.username}</p>
                         </ul>
                         <FriendContent id={friend._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
-                            <Button variant="outlined" onClick={(e) => rejectFriend(e, friend)}>Unfriend</Button>
+                            <ButtonGroup>
+                                <Button variant="contained" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
+                                <Button variant="contained" onClick={(e) => rejectFriend(e, friend)}>Unfriend</Button>
+                            </ButtonGroup>
                         </FriendContent>
                     </Box>
                 )
@@ -79,8 +82,10 @@ const Friends = (props) => {
                             <p>{friend.username}</p>
                         </ul>
                         <FriendContent id={friend._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
-                            <Button variant="outlined" onClick={(e) => acceptFriend(e, friend)}>Requested</Button>
+                            <ButtonGroup>
+                                <Button variant="contained" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
+                                <Button variant="contained" onClick={(e) => acceptFriend(e, friend)}>Requested</Button>
+                            </ButtonGroup>
                         </FriendContent>
                     </Box>
                 )
@@ -113,8 +118,10 @@ const Friends = (props) => {
                             <p>{user.username}</p>
                         </ul>
                         <FriendContent id={user._id} activeTab={activeTab}>
-                            <Button variant="outlined" onClick={(e) => userProfile(e, user._id)}>Visit Profile</Button>
-                            <Button variant="outlined" onClick={(e) => addFriend(e, user)}>Add Friend</Button>
+                            <ButtonGroup>
+                                <Button variant="contained" onClick={(e) => userProfile(e, user._id)}>Visit Profile</Button>
+                                <Button variant="contained" onClick={(e) => addFriend(e, user)}>Add Friend</Button>
+                            </ButtonGroup>
                         </FriendContent>
                     </Box>
                 )
