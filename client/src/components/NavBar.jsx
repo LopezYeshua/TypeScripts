@@ -8,7 +8,8 @@ import {
     ThemeProvider,
     Container,
     Link,
-    ButtonGroup
+    ButtonGroup,
+    Box
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Logout from './Logout'
@@ -34,14 +35,25 @@ const NavBar = (props) => {
         navigate('/login')
     }
 
-    const hostBeef = (e, userId) => {
-        e.preventDefault()
+    // const hostBeef = (e, userId) => {
+    //     e.preventDefault()
         
+    // }
+
+    const navBar = {
+        justifyContent: "space-between",
+        display: "flex",
+        minWidth: "90vw"
+    }
+
+    const navButtonBox = {
+        margin: "auto 0",
+        display: "flex"
     }
 
     return (
         <ThemeProvider theme={theme}>
-            <Container sx={{ justifyContent: "space-between", display: "flex" }}>
+            <Container sx={navBar}>
                 <Link component={LinkRouter} to="/">
                     <Typography
                         gutterBottom={false}
@@ -52,13 +64,15 @@ const NavBar = (props) => {
                         Welcome {loggedinUsername}
                     </Typography>
                 </Link>
-                <ThemeToggler />
-                <ButtonGroup>
-                    <Button variant="outlined" onClick={togglePopup}>Beefit!</Button>
-                    {loggedinInfo.loggedin ?
-                        <Logout /> :
-                        <Button onClick={handleClick}>Login</Button>}
-                </ButtonGroup>
+                <Box sx={navButtonBox}>
+                    <ThemeToggler />
+                    <ButtonGroup>
+                        <Button variant="contained" onClick={togglePopup}>Beefit!</Button>
+                        {loggedinInfo.loggedin ?
+                            <Logout /> :
+                            <Button variant="contained" onClick={handleClick}>Login</Button>}
+                    </ButtonGroup>
+                </Box>
                 <BeefitContent togglePopup={togglePopup} isVisible={isVisible} />
             </Container>
 

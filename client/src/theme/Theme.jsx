@@ -197,8 +197,8 @@ export const getThemedComponents = (mode) => ({
                 MuiButton: {
                     styleOverrides: {
                         root: {
-                            borderRadius: 9,
-                            color: common.white,
+                            borderRadius: 6,
+                            color: common.black,
                             fontFamily:
                                 "rubik, Roboto, 'Helvetica Neue', Arial, sans-serif",
                             fontSize: 15,

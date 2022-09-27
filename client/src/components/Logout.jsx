@@ -26,7 +26,7 @@ const Logout = () => {
     }
 
     return (
-        <Button variant="outlined" onClick={logout}>Logout</Button>
+        <Button variant="contained" onClick={logout}>Logout</Button>
     )
 } 
 export default Logout

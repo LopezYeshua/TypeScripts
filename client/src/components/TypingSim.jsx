@@ -177,7 +177,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
         <Container sx={{ padding: "5px" }}>
             <Box className="timer">{Math.floor(timeElapsed * 60)}s</Box>
             <Container className="stats">
-                <p>Current WPM: {wpm}</p>
+                {/* <p>Current WPM: {wpm}</p> */}
                 <p>Average WPM: {avgWpm}</p>
             </Container>
             <progress value={progress} max="100" />
@@ -237,7 +237,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
             <Container>
                 <Button
                     type="submit"
-                    variant="outlined"
+                    variant="contained"
                     onClick={startGame}
                     className="btn">
                     Start

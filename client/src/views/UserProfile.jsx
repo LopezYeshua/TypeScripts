@@ -46,17 +46,17 @@ const UserProfile = () => {
     })
 
     return (
-        <Container sx={{ width: "100vw" }}>
+        <Box sx={{ width: "100vw" }}>
             <NavBar />
             {user &&
                 <Box 
                     sx={{ flexGrow: 1 }}
                     className="position-center"
                     >
-                    <UserNav perDayData={perDayData} user={user}/>
+                    <UserNav perDayData={perDayData} setUser={setUser} user={user}/>
                 </Box>
             }
-        </Container>
+        </Box>
     )
 }
 export default UserProfile

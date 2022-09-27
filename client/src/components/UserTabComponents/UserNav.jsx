@@ -73,8 +73,8 @@ const UserNav = ({ setUser, user, perDayData }) => {
         axios.put(`http://localhost:8000/api/users/${user._id}`, {username: username})
         .then(res => {
             console.log(res.data)
-            setUser(res.data)}
-            )
+            setUser(res.data)
+        })
         .catch(err => console.log(err))
     }
 
@@ -151,8 +151,18 @@ const UserNav = ({ setUser, user, perDayData }) => {
                             <Box sx={{ width: "100px", height: "100px"}} className={user.icon}></Box>
                         </Box>
                         <Typography>User Since: {user.createdAt}</Typography>
-                        <TextField value={username} label="username" onChange={(e) => updateUser(e)} />
-                        <Button onClick={(e) => handleSubmit(e)}>Submit Change</Button>
+                        <Box>
+                            <TextField
+                                value={username}
+                                label="username"
+                                onChange={(e) => updateUser(e)}/>
+                            <Button
+                            sx={{margin: "1em"}}
+                            variant="contained"
+                            onClick={(e) => handleSubmit(e)}>
+                                Submit Change
+                            </Button>
+                        </Box>
                     </Paper>
                 </UserContent>
             </Container>
