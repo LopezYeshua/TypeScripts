@@ -1,0 +1,28 @@
+/* Start of NavBar CSS */
+
+.navBar {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%);
+    
+    min-height: 65px;
+    max-width: 3000px !important;
+    
+    z-index: 0;
+    
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.navBarContent {
+    display: grid;
+    grid-template-columns: 2;
+}
+
+.navBarItem {
+    display: inline-grid;
+}
+
+
+/* End of NavBar CSS */

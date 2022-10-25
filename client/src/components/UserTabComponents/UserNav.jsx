@@ -70,12 +70,12 @@ const UserNav = ({ setUser, user, perDayData }) => {
         console.log(user._id)
 
         e.preventDefault()
-        axios.put(`http://localhost:8000/api/users/${user._id}`, {username: username})
-        .then(res => {
-            console.log(res.data)
-            setUser(res.data)
-        })
-        .catch(err => console.log(err))
+        axios.put(`http://localhost:8000/api/users/${user._id}`, { username: username })
+            .then(res => {
+                console.log(res.data)
+                setUser(res.data)
+            })
+            .catch(err => console.log(err))
     }
 
     // create style object for user icon
@@ -99,12 +99,11 @@ const UserNav = ({ setUser, user, perDayData }) => {
                     setActiveTab={setActiveTab}
                     tabName={"stats"}
                 />
-                {user._id === loggedinInfo.loggedinId ?
-                    <UserNavItem
-                        id={1}
-                        setActiveTab={setActiveTab}
-                        tabName={"settings"}
-                    /> : null}
+                <UserNavItem
+                    id={1}
+                    setActiveTab={setActiveTab}
+                    tabName={"settings"}
+                />
                 <UserNavItem
                     id={2}
                     setActiveTab={setActiveTab}
@@ -113,14 +112,14 @@ const UserNav = ({ setUser, user, perDayData }) => {
             </Container>
 
             <Container>
-                <UserContent 
+                <UserContent
                     id={0}
                     activeTab={activeTab}>
-                            {user.scores?.length >= 1 && 
-                            <Container>
-                                {/* <LineChart data={perDayData}/> */}
-                                <BarChart data={perDayData} />
-                            </Container>}
+                    {user.scores?.length >= 1 &&
+                        <Container>
+                            {/* <LineChart data={perDayData}/> */}
+                            <BarChart data={perDayData} />
+                        </Container>}
                     <Typography variant="h5">Recent Scores</Typography>
                     {user.scores?.map((score, index) => {
                         return (
@@ -148,18 +147,18 @@ const UserNav = ({ setUser, user, perDayData }) => {
                         elevation={10}>
                         <Typography variant="h2">{user.username}</Typography>
                         <Box sx={iconBox}>
-                            <Box sx={{ width: "100px", height: "100px"}} className={user.icon}></Box>
+                            <Box sx={{ width: "100px", height: "100px" }} className={user.icon}></Box>
                         </Box>
                         <Typography>User Since: {user.createdAt}</Typography>
                         <Box>
                             <TextField
                                 value={username}
                                 label="username"
-                                onChange={(e) => updateUser(e)}/>
+                                onChange={(e) => updateUser(e)} />
                             <Button
-                            sx={{margin: "1em"}}
-                            variant="contained"
-                            onClick={(e) => handleSubmit(e)}>
+                                sx={{ margin: "1em" }}
+                                variant="contained"
+                                onClick={(e) => handleSubmit(e)}>
                                 Submit Change
                             </Button>
                         </Box>
@@ -169,4 +168,4 @@ const UserNav = ({ setUser, user, perDayData }) => {
         </Box>
     )
 }
-            export default UserNav
+export default UserNav

@@ -13,10 +13,9 @@ import {
 } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import '../static/css/UserProfile.css'
-import * as d3 from 'd3'
+import '../static/css/avatars.css'
 import BarChart from '../components/GraphComponents/BarChart'
 import LineChart from '../components/GraphComponents/LineChart'
-import UserNav from '../components/UserTabComponents/UserNav'
 
 const UserProfile = () => {
     const [user, setUser] = useState()
@@ -32,12 +31,14 @@ const UserProfile = () => {
             .then(res => {
                 const dataa = []
                 setUser(res.data.user[0])
-                    res.data.user[0].scores.map((score, index) => {
-                    dataa.push({interval: index + 1,
-                        wpm: score.wpm})
+                res.data.user[0].scores.map((score, index) => {
+                    dataa.push({
+                        interval: index + 1,
+                        wpm: score.wpm
                     })
-                    setPerDayData(dataa)
                 })
+                setPerDayData(dataa)
+            })
             .catch(err => console.log(err))
     }, [])
 
@@ -46,16 +47,45 @@ const UserProfile = () => {
     })
 
     return (
-        <Box sx={{ width: "100vw" }}>
+        <Box sx={{ width: "calc(100vw - 1em)" }}>
             <NavBar />
-            {user &&
-                <Box 
-                    sx={{ flexGrow: 1 }}
-                    className="position-center"
-                    >
-                    <UserNav perDayData={perDayData} setUser={setUser} user={user}/>
+            <div className="user-profile">
+
+                <Container className="user-nav">
+                    <h2>
+                        {user?.username}
+                    </h2>
+                    <Box className="iconBox">
+                        <div className={`${user?.icon} "icon-height"`}></div>
+                    </Box>
+                    <p>User Since: {user?.createdAt}</p>
+                </Container>
+
+                <Box className="user-data">
+                    {user?.scores.length >= 1 &&
+                        <>
+                            {/* <LineChart data={perDayData}/> */}
+                            <BarChart data={perDayData} />
+                        </>
+                    }
+                    <Typography variant="h5">Recent Scores</Typography>
+                    {user?.scores.map((score, index) => {
+                        return (
+                            <Paper
+                                elevation={5}
+                                className="scoreBoard"
+                                key={index}>
+                                <Typography variant="h6">
+                                    {score.game}:
+                                </Typography>
+                                WPM: {score.wpm} <br />
+                                {score.createdAt}
+                            </Paper>
+                        )
+                    })}
                 </Box>
-            }
+
+            </div>
         </Box>
     )
 }

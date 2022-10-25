@@ -20,7 +20,8 @@ const BeefItPopup = ({ content, handleClose, isVisible }) => {
         width: "100%",
         height: "100vh",
         top: 0,
-        left: 0
+        left: 0,
+        zIndex: 14
     }
 
     const box = {
@@ -32,6 +33,7 @@ const BeefItPopup = ({ content, handleClose, isVisible }) => {
         marginTop: "calc(100vh - 85vh - 20px)",
         padding: "20px",
         overflow: "auto",
+        zIndex: 1
     }
 
     const closePopup = {
@@ -48,7 +50,7 @@ const BeefItPopup = ({ content, handleClose, isVisible }) => {
         textAlign: "center",
         border: "1px solid #999",
         fontSize: "20px",
-        zIndex: 1
+        zIndex: 2
     }
 
     return (

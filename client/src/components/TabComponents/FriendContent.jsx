@@ -1,12 +1,11 @@
 import React from 'react'
-import { Container } from '@mui/material'
 
 const FriendContent = ({ id, setActiveTab, activeTab, children }) => {
     return (
         activeTab === id ? 
-        <Container className="TabContent">
+        <div className="TabContent">
             { children }
-        </Container>
+        </div>
         : null
     )
 }

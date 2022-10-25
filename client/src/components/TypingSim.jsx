@@ -174,12 +174,12 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
     }
 
     return (
-        <Container sx={{ padding: "5px" }}>
-            <Box className="timer">{Math.floor(timeElapsed * 60)}s</Box>
-            <Container className="stats">
+        <div className="typing-sim">
+            <h1 className="timer">{Math.floor(timeElapsed * 60)}s</h1>
+            <div className="stats">
                 {/* <p>Current WPM: {wpm}</p> */}
                 <p>Average WPM: {avgWpm}</p>
-            </Container>
+            </div>
             <progress value={progress} max="100" />
             { p2Loaded && <progress value={opponentProgress} max="100" />}
             <Box sx={{ padding: "1em" }}>
@@ -234,7 +234,6 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 inputRef={ref} />
-            <Container>
                 <Button
                     type="submit"
                     variant="contained"
@@ -242,8 +241,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
                     className="btn">
                     Start
                 </Button>
-            </Container>
-        </Container>
+        </div>
     )
 }
 export default TypingSim

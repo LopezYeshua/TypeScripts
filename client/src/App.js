@@ -62,7 +62,6 @@ function App() {
     loggedin :tempLoggedIn,
     loggedinId : tempLoggedInId,
     loggedinUsername : tempLoggedInUsername,
-    loadingUser: false
   })
 
   return (

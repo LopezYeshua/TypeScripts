@@ -1,11 +1,12 @@
 import { amber, deepPurple, grey, blue, common } from '@mui/material/colors';
+import { stackOrderNone } from 'd3';
 
 
 const palette = {
     light: {
         primary: {
             main: '#34C0AC',
-            light: '#B1DED3',
+            light: '#76e4bd',
             dark: '#00765A'
         }
     },
@@ -60,16 +61,22 @@ export const getThemedComponents = (mode) => ({
             ? {
                 MuiAppBar: {
                     styleOverrides: {
-                        colorPrimary: {
-                            backgroundColor: grey[800],
-                        },
+                    root: {
                     },
+                },
                 },
                 MuiPaper: {
                     styleOverrides: {
                         root: {
                             borderRadius: ".5rem",
-                            padding: "20px 0"
+                            padding: "20px 5px"
+                        }
+                    }
+                },
+                MuiContainer: {
+                    styleOverrides: {
+                        root: {
+                            backgroundColor: "#34C0AC",
                         }
                     }
                 },
@@ -158,19 +165,24 @@ export const getThemedComponents = (mode) => ({
             : {
                 MuiAppBar: {
                     styleOverrides: {
-                        colorPrimary: {
-                            backgroundColor: blue[800],
-                        },
+                    root: {
                     },
+                },
                 },
                 MuiPaper: {
                     styleOverrides: {
                         root: {
                             // border: `4px solid #ff1178`,
-                            border: `3px solid #000B6B`,
                             background: "#001C41",
                             borderRadius: ".5rem",
-                            padding: "20px 0"
+                            padding: "20px 5px"
+                        }
+                    }
+                },
+                MuiContainer: {
+                    styleOverrides: {
+                        root: {
+                            backgroundColor: "#001c41",
                         }
                     }
                 },

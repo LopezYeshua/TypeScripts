@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import {
-    Container,
     Box, Button,
     ButtonGroup
 } from '@mui/material'
@@ -36,11 +35,9 @@ const Friends = (props) => {
         navigate(`/${userId}`)
     }
 
-    
-
     return (
-        <Container onMouseLeave={() => setActiveTab("")} sx={{ display: "flex", gap: "1rem", padding: "5px" }}>
-            <Box>
+        <div onMouseLeave={() => setActiveTab("")}>
+            <Box className="addPadding">
                 <ul className="nav">
                     <FriendNavItem
                         user={loggedInUser}
@@ -126,7 +123,7 @@ const Friends = (props) => {
                     </Box>
                 )
             })}
-        </Container>
+        </div>
     )
 }
 export default Friends

@@ -1,9 +1,6 @@
 .profile-icon {
+    cursor:pointer;
     justify-content: center;
-}
-
-.nav {
-    list-style: none;
 }
 
 .active {
@@ -19,7 +16,7 @@ button {
 .smiley {
     background-image: url('../images/smiley.png');
     background-size: cover;
-    width: 50px;
+    width:50px;
     height: 50px;
 }
 

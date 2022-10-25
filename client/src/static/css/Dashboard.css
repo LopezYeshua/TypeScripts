@@ -1,3 +1,33 @@
-.friends-people-list {
-    min-height: 65px;
+/* Start of Hero CSS */
+
+.hero {
+    margin: 100px 0;
+    width: 100vw;
+    max-width: 1500px;
+    z-index: -1;
+}
+
+.friends-container {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    max-width: 1400px;
+}
+
+/* End of Hero CSS */
+
+/* Start of Typing Sim CSS */
+
+.typing-sim {
+    margin: 15px;
+}
+
+/* End of Typing Sim CSS */
+
+.nav {
+    list-style: none;
+}
+
+.addPadding {
+    padding: 5px 10px;
 }

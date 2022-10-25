@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+h2 {
+    font-size: 50px;
+}
+
 .column {
     display: flex;
     flex-direction: column;
@@ -18,8 +22,58 @@
     text-align: center;
 }
 
-
-
 .userNav:hover {
     background-color:hsla(165, 100%, 30%, 0.568)
 }
+
+/* Start of user nav */
+
+.user-profile {
+    position: relative;
+    top: 65px;
+    left: 50%;
+    transform: translate(-50%);
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    min-width: 100px;
+    height: calc(100vh - 65px);
+    max-width: 3000px;
+}
+
+.user-nav {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.iconBox {
+    background-color: red;
+    max-width: calc(50% - 50px);
+    margin: 0 auto;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5em;
+}
+
+.icon-height {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+/* End of user nav */
+
+/* Start of user data */
+
+.user-data {
+    grid-column-start: 2;
+    grid-column-end: 20;
+}
+
+.scoreBoard {
+    margin: 1rem 0;
+    max-width: 30vw;
+    padding: 10px 10px;
+}
+
+/* End of user data */
