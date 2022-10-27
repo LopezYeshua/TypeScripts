@@ -1,19 +1,24 @@
 /* Start of NavBar CSS */
 
 .navBar {
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 50%;
     transform: translate(-50%);
+
+    display: block;
+    box-sizing: border-box;
     
+    width: 100vw !important;
     min-height: 65px;
-    max-width: 3000px !important;
+    max-width: 2600px;
     
-    z-index: 0;
+    z-index: 1;
     
     padding: 0 !important;
     border-radius: 0 !important;
 }
+
 
 .navBarContent {
     display: grid;

@@ -13,9 +13,9 @@ import {
 } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import '../static/css/UserProfile.css'
-import '../static/css/avatars.css'
 import BarChart from '../components/GraphComponents/BarChart'
 import LineChart from '../components/GraphComponents/LineChart'
+import images from '../static/images'
 
 const UserProfile = () => {
     const [user, setUser] = useState()
@@ -47,7 +47,7 @@ const UserProfile = () => {
     })
 
     return (
-        <Box sx={{ width: "calc(100vw - 1em)" }}>
+        <Box sx={{ width: "100vw" }}>
             <NavBar />
             <div className="user-profile">
 
@@ -56,7 +56,7 @@ const UserProfile = () => {
                         {user?.username}
                     </h2>
                     <Box className="iconBox">
-                        <div className={`${user?.icon} "icon-height"`}></div>
+                        <img src={images[user?.icon]} className="user-icon" alt="icon" />
                     </Box>
                     <p>User Since: {user?.createdAt}</p>
                 </Container>

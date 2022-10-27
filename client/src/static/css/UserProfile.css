@@ -13,14 +13,9 @@ h2 {
     flex-direction: column;
 }
 
-.center {
-    display: flex;
-    align-items: center;
-}
-
-.centerize {
+/* .centerize {
     text-align: center;
-}
+} */
 
 .userNav:hover {
     background-color:hsla(165, 100%, 30%, 0.568)
@@ -30,14 +25,14 @@ h2 {
 
 .user-profile {
     position: relative;
-    top: 65px;
+    top: 0;
     left: 50%;
     transform: translate(-50%);
     display: grid;
     grid-template-columns: auto auto auto auto;
     min-width: 100px;
     height: calc(100vh - 65px);
-    max-width: 3000px;
+    max-width: 2600px;
 }
 
 .user-nav {
@@ -45,21 +40,28 @@ h2 {
     text-align: center;
 }
 
+.user-nav > h2, 
+.user-nav > img,
+.user-nav > p {
+    margin: 20px 0;
+}
+
 .iconBox {
     background-color: red;
-    max-width: calc(50% - 50px);
     margin: 0 auto;
     height: 100px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: .5em;
+    border-radius: 5rem;
 }
 
-.icon-height {
-    width: 100px !important;
-    height: 100px !important;
+img {
+    width: 100px;
 }
+
+
 
 /* End of user nav */
 
@@ -68,6 +70,10 @@ h2 {
 .user-data {
     grid-column-start: 2;
     grid-column-end: 20;
+
+    position: relative;
+    top: 100px;
+    left: 200px;
 }
 
 .scoreBoard {

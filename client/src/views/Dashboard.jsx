@@ -86,11 +86,13 @@ const Dashboard = () => {
             <ThemeProvider theme={theme}>
                 <Box>
                     <NavBar />
-                    <Paper
-                        className="hero"
-                        elevation={10}>
-                        <TypingSim />
-                    </Paper>
+                    <div className="center">
+                        <Paper
+                            className="hero"
+                            elevation={10}>
+                            <TypingSim />
+                        </Paper>
+                    </div>
                 </Box>
             </ThemeProvider>
         )
@@ -103,25 +105,26 @@ const Dashboard = () => {
             <ThemeProvider theme={theme}>
 
                 <NavBar loggedinUsername={user?.username} />
-                <Paper
-                    className="hero"
-                    elevation={10}>
-                    <TypingSim />
-                </Paper>
-                <Paper
-                    className="friends-container"
-                    elevation={10}
-                >
-                    <Friends
-                        onPropAcceptFriend={acceptFriend}
-                        onPropRejectFriend={rejectFriend}
-                        onPropFriend={addFriend}
-                        loggedInUser={user}
-                        friends={friends}
-                        pending={pending}
-                        requested={requested}
-                        users={users} />
-                </Paper>
+                <Box className="center">
+                    <Paper
+                        className="hero"
+                        elevation={10}>
+                        <TypingSim />
+                    </Paper>
+                    <Paper
+                        elevation={10}
+                    >
+                        <Friends
+                            onPropAcceptFriend={acceptFriend}
+                            onPropRejectFriend={rejectFriend}
+                            onPropFriend={addFriend}
+                            loggedInUser={user}
+                            friends={friends}
+                            pending={pending}
+                            requested={requested}
+                            users={users} />
+                    </Paper>
+                </Box>
 
             </ThemeProvider>
         </>

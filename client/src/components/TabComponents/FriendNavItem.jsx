@@ -1,16 +1,20 @@
 import React from 'react'
-import '../../static/css/avatars.css'
+import images from '../../static/images/index'
 
-const FriendNavItem = ({ id, user, activeTab, setActiveTab }) => {
+const FriendNavItem = ({ id, user, setActiveTab }) => {
     const handleTab = () => {
         setActiveTab(id)
     }
 
     return (
-        <li
-        onClick={handleTab}
-        className={`profile-icon ${user?.icon} ${activeTab === id ? "active" : ""}`}>
-        </li>
+        <div className="user">
+            <img
+            src={images[user?.icon]}
+            onClick={handleTab}
+            alt="image"
+            className={`profile-icon`}/>
+            <p>{user?.username}</p>
+        </div>
     )
 }
 

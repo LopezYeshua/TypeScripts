@@ -57,6 +57,7 @@ const NavBar = () => {
 
     const shortNav = {
         flexGrow: 1,
+        zIndex: 1,
         display: {
             xs: 'flex',
             md: 'none'
@@ -91,7 +92,7 @@ const NavBar = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <AppBar className="navBar" position="">
+            <AppBar elevation="0" className="navBar" position="">
                 <Box>
                     <Toolbar className="navBarContent">
                         <Link className="navBarItem" sx={styleIcon} component={LinkRouter} to="/">
@@ -129,7 +130,7 @@ const NavBar = () => {
                                 onClose={handleCloseNavMenu}
                                 sx={{
                                     display: { xs: 'block', md: 'none' },
-                                    zIndex: -1
+                                    zIndex: 0
                                 }}
                             >
                                 <ThemeToggler />

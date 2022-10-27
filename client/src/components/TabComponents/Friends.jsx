@@ -4,7 +4,6 @@ import {
     ButtonGroup
 } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import '../../static/css/avatars.css'
 import FriendNavItem from './FriendNavItem'
 import FriendContent from './FriendContent'
 import { LoggedinContext } from '../../context/LoggedinContext'
@@ -36,29 +35,23 @@ const Friends = (props) => {
     }
 
     return (
-        <div onMouseLeave={() => setActiveTab("")}>
-            <Box className="addPadding">
-                <ul className="nav">
-                    <FriendNavItem
-                        user={loggedInUser}
-                        id={loggedInUser?._id}
-                        setActiveTab={setActiveTab} />
-                    <p>{loggedInUser?.username}</p>
-                </ul>
+        <div className="friends" onMouseLeave={() => setActiveTab("")}>
+            <Box>
+                <FriendNavItem
+                    user={loggedInUser}
+                    id={loggedInUser?._id}
+                    setActiveTab={setActiveTab} />
                 <FriendContent id={loggedInUser?._id} activeTab={activeTab}>
-                    <Button onClick={(e) => userProfile(e, loggedinInfo.loggedinId)} variant="contained">Go to profile</Button>
+                    <div><Button onClick={(e) => userProfile(e, loggedinInfo.loggedinId)} variant="contained">Go to profile</Button></div>
                 </FriendContent>
             </Box>
             {friends.map((friend, index) => {
                 return (
                     <Box key={index}>
-                        <ul className="nav">
-                            <FriendNavItem
-                                user={friend}
-                                id={friend._id}
-                                setActiveTab={setActiveTab} />
-                            <p>{friend.username}</p>
-                        </ul>
+                        <FriendNavItem
+                            user={friend}
+                            id={friend._id}
+                            setActiveTab={setActiveTab} />
                         <FriendContent id={friend._id} activeTab={activeTab}>
                             <ButtonGroup>
                                 <Button variant="contained" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
@@ -71,13 +64,10 @@ const Friends = (props) => {
             {requested.map((friend, index) => {
                 return (
                     <Box key={index}>
-                        <ul className="nav">
-                            <FriendNavItem
-                                user={friend}
-                                id={friend._id}
-                                setActiveTab={setActiveTab} />
-                            <p>{friend.username}</p>
-                        </ul>
+                        <FriendNavItem
+                            user={friend}
+                            id={friend._id}
+                            setActiveTab={setActiveTab} />
                         <FriendContent id={friend._id} activeTab={activeTab}>
                             <ButtonGroup>
                                 <Button variant="contained" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
@@ -90,13 +80,10 @@ const Friends = (props) => {
             {pending.map((friend, index) => {
                 return (
                     <Box key={index}>
-                        <ul className="nav">
-                            <FriendNavItem
-                                user={friend}
-                                id={friend._id}
-                                setActiveTab={setActiveTab} />
-                            <p>{friend.username}</p>
-                        </ul>
+                        <FriendNavItem
+                            user={friend}
+                            id={friend._id}
+                            setActiveTab={setActiveTab} />
                         <FriendContent id={friend._id} activeTab={activeTab}>
                             <Button variant="outlined" onClick={(e) => userProfile(e, friend._id)}>Visit Profile</Button>
                             <Button variant="outlined" disabled>Pending</Button>
@@ -107,13 +94,10 @@ const Friends = (props) => {
             {users.map((user, index) => {
                 return (
                     <Box key={index}>
-                        <ul className="nav">
-                            <FriendNavItem
-                                user={user}
-                                id={user._id}
-                                setActiveTab={setActiveTab} />
-                            <p>{user.username}</p>
-                        </ul>
+                        <FriendNavItem
+                            user={user}
+                            id={user._id}
+                            setActiveTab={setActiveTab} />
                         <FriendContent id={user._id} activeTab={activeTab}>
                             <ButtonGroup>
                                 <Button variant="contained" onClick={(e) => userProfile(e, user._id)}>Visit Profile</Button>
