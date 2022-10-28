@@ -1,21 +1,13 @@
-import {
-    Container, Typography,
-    Grid,
-    Box,
-    Paper
-} from '@mui/material'
+import { Box } from '@mui/material'
 import axios from 'axios'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import {
-    useParams
-} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import '../static/css/UserProfile.css'
-import BarChart from '../components/GraphComponents/BarChart'
-import LineChart from '../components/GraphComponents/LineChart'
-import images from '../static/images'
+import UserNav from '../components/UserProfile/UserNav'
+import UserData from '../components/UserProfile/UserData'
 
 const UserProfile = () => {
     const [user, setUser] = useState()
@@ -23,7 +15,7 @@ const UserProfile = () => {
         wpm: 0,
         interval: 0
     })
-    const { id } = useParams()
+    const { id } = useParams()   
 
 
     useEffect(() => {
@@ -47,46 +39,13 @@ const UserProfile = () => {
     })
 
     return (
-        <Box sx={{ width: "100vw" }}>
+        <div>
             <NavBar />
-            <div className="user-profile">
-
-                <Container className="user-nav">
-                    <h2>
-                        {user?.username}
-                    </h2>
-                    <Box className="iconBox">
-                        <img src={images[user?.icon]} className="user-icon" alt="icon" />
-                    </Box>
-                    <p>User Since: {user?.createdAt}</p>
-                </Container>
-
-                <Box className="user-data">
-                    {user?.scores.length >= 1 &&
-                        <>
-                            {/* <LineChart data={perDayData}/> */}
-                            <BarChart data={perDayData} />
-                        </>
-                    }
-                    <Typography variant="h5">Recent Scores</Typography>
-                    {user?.scores.map((score, index) => {
-                        return (
-                            <Paper
-                                elevation={5}
-                                className="scoreBoard"
-                                key={index}>
-                                <Typography variant="h6">
-                                    {score.game}:
-                                </Typography>
-                                WPM: {score.wpm} <br />
-                                {score.createdAt}
-                            </Paper>
-                        )
-                    })}
-                </Box>
-
-            </div>
-        </Box>
+            <Box className="user-profile">
+                <UserNav user={user} />
+                <UserData user={user} perDayData={perDayData} />
+            </Box>
+        </div>
     )
 }
 export default UserProfile

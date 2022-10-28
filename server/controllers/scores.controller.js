@@ -43,7 +43,7 @@ module.exports.userScores = async (req, res) => {
                         "wpm": 1,
                         "createdAt": {
                             "$dateToString": {
-                                "format": "%d %H:%M",
+                                "format": "%d/%m/%Y %H:%M",
                                 "timezone": "America/Los_Angeles",
                                 "date": "$createdAt"
                             }

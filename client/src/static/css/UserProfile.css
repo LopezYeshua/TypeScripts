@@ -1,16 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 h2 {
     font-size: 50px;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
 }
 
 /* .centerize {
@@ -24,19 +13,23 @@ h2 {
 /* Start of user nav */
 
 .user-profile {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 65px;
     left: 50%;
     transform: translate(-50%);
+    width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    min-width: 100px;
-    height: calc(100vh - 65px);
+    height: 100%;
+    grid-template-columns: auto auto;
     max-width: 2600px;
 }
 
 .user-nav {
-    padding-top: 10px;
+    
+    width: 300px !important;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
     text-align: center;
 }
 
@@ -69,17 +62,23 @@ img {
 
 .user-data {
     grid-column-start: 2;
-    grid-column-end: 20;
-
-    position: relative;
-    top: 100px;
-    left: 200px;
+    grid-column-end: 10;
+    padding: 100px 0 0 100px;
 }
 
-.scoreBoard {
+.table {
+    margin: 0 !important;
+    width: 1000px !important;
+}
+
+.table-container {
+    margin: 0;
+}
+
+/* .scoreBoard {
     margin: 1rem 0;
     max-width: 30vw;
     padding: 10px 10px;
-}
+} */
 
 /* End of user data */

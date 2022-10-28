@@ -69,7 +69,6 @@ export const getThemedComponents = (mode) => ({
                     styleOverrides: {
                         root: {
                             borderRadius: ".5rem",
-                            padding: "20px 5px"
                         }
                     }
                 },
@@ -175,7 +174,6 @@ export const getThemedComponents = (mode) => ({
                             // border: `4px solid #ff1178`,
                             background: "#001C41",
                             borderRadius: ".5rem",
-                            padding: "20px 5px"
                         }
                     }
                 },
