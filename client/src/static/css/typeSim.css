@@ -15,14 +15,18 @@ body {
 
 .timer {
     font-size: 3rem;
-    color: #76e4bd;
     font-weight: bold;
+
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: #000 2px;
 }
 
 .stats {
-    border: 2px solid black;
-    border-radius: .5rem;
-    padding: 5px;
+    font-size: 2rem;
+    font-weight: bold;
+
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: #000 2px;
 }
 
 progress {
@@ -37,7 +41,7 @@ progress {
 }
 
 .green {
-    color: green;
+    color: rgb(0, 54, 0);
 }
 
 .red {

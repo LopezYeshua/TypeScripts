@@ -15,7 +15,7 @@ import '../static/css/typeSim.css'
 import '../App.css'
 import { LoggedinContext } from '../context/LoggedinContext'
 
-const TypingSim = ({opponentProgress, p2Loaded}) => {
+const TypingSim = ({sendSetProgress, sendScore}) => {
     const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
     const [loaded, setLoaded] = useState(false)
     const [state, setState] = useState({
@@ -24,6 +24,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
         started: false,
         completed: false,
     })
+    const [start, setStart] = useState("Start")
     const [charCount, setCharCount] = useState(0)
     const [errorCount, setErrorCount] = useState(0)
     const [timeElapsed, setTimeElapsed] = useState(0)
@@ -68,6 +69,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
         setInput("")
         setStartTime(Date.now())
         setProgress(0)
+        sendSetProgress(progress)
     }
 
     // Counts all pressed keys except shift and backspace.
@@ -90,11 +92,11 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
                 const progress = (
                     newCompletedWords.length /
                     (newWords.length + newCompletedWords.length)) * 100
-                console.log(progress)
                 setState({
                     ...state,
                     completed: newWords.length === 0,
                 })
+                sendSetProgress(progress)
                 setProgress(progress)
                 setCompletedWords(newCompletedWords)
                 setWords(newWords)
@@ -111,7 +113,6 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
         }
         if (e.key === "Backspace" && input.length > 0) {
             setErrorCount(errorCount + 1)
-            console.log(errorCount)
         }
     }
     // When loaded, this hook will run and calulate the current words per minute.
@@ -140,6 +141,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
     }
 
     const submitScore = () => {
+        loggedinInfo.loggedinId ?
         axios.post('http://localhost:8000/api/scores/1', {
             player1: loggedinInfo.loggedinId,
             game: "We Scripts",
@@ -151,8 +153,10 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
                 console.log(res)
             })
             .catch(err => console.log(err))
+        :
+        sendScore(Math.floor((charCount / 5) / timeElapsed))
     }
-
+    
     if (state.completed) {
         calcAvgWpm()
         setLoaded(false)
@@ -168,6 +172,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
         setWpm(0)
         setCompletedWords([])
         setWords([])
+        setStart("Try Again")
         setCharCount(0)
         setInput("")
         setProgress(0)
@@ -180,8 +185,6 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
                 {/* <p>Current WPM: {wpm}</p> */}
                 <p>Average WPM: {avgWpm}</p>
             </div>
-            <progress value={progress} max="100" />
-            { p2Loaded && <progress value={opponentProgress} max="100" />}
             <Box sx={{ padding: "1em" }}>
                 <p className="text">
                     {loaded && state.quote?.split(" ").map((word, w_idx) => {
@@ -239,7 +242,7 @@ const TypingSim = ({opponentProgress, p2Loaded}) => {
                     variant="contained"
                     onClick={startGame}
                     className="btn">
-                    Start
+                    {start}
                 </Button>
         </div>
     )

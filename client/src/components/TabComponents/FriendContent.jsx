@@ -1,9 +1,9 @@
 import React from 'react'
 
-const FriendContent = ({ id, setActiveTab, activeTab, children }) => {
+const FriendContent = ({ id, activeTab, children }) => {
     return (
-        activeTab === id ? 
-        <div className="TabContent">
+        activeTab === id ?
+        <div className="tab-content">
             { children }
         </div>
         : null

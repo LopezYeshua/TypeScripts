@@ -20,7 +20,6 @@ import { useTheme } from '@mui/material/styles'
 import Logout from './Logout'
 import { LoggedinContext } from '../context/LoggedinContext'
 import ThemeToggler from './ThemeToggler'
-import BeefitContent from './Popups/BeefitContent'
 import '../static/css/NavBar.css'
 
 const NavBar = () => {
@@ -134,7 +133,6 @@ const NavBar = () => {
                                 }}
                             >
                                 <ThemeToggler />
-                                <Button variant="contained" onClick={togglePopup}>Beefit!</Button>
                                 {loggedinInfo.loggedin ?
                                     <Logout /> :
                                     <Button variant="contained" onClick={handleClick}>Login</Button>}
@@ -151,15 +149,11 @@ const NavBar = () => {
 
                         <Box className="navBarItem" sx={longNav}>
                             <ThemeToggler />
-                            <ButtonGroup>
-                                <Button variant="contained" onClick={togglePopup}>Beefit!</Button>
-                                {loggedinInfo.loggedin ?
-                                    <Logout /> :
-                                    <Button variant="contained" onClick={handleClick}>Login</Button>}
-                            </ButtonGroup>
+                            {/* <Button variant="contained" onClick={togglePopup}>Beefit!</Button> */}
+                            {loggedinInfo.loggedin ?
+                                <Logout /> :
+                                <Button variant="contained" onClick={handleClick}>Login</Button>}
                         </Box>
-
-                        <BeefitContent togglePopup={togglePopup} isVisible={isVisible} />
                     </Toolbar>
                 </Box>
             </AppBar>

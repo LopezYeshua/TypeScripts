@@ -4,10 +4,10 @@ import { useD3 } from '../hooks/useD3'
 import '../../static/css/graph.css'
 
 const BarChart = ({ data }) => {
-    console.log(data)
-    const ref = useD3((svg) => {
+    const ref = useD3(
+        (svg) => {
         const height = 500
-        const width = 500
+        const width = 1000
         const margin = { top: 20, right: 30, bottom: 30, left: 40 }
 
 
@@ -15,7 +15,7 @@ const BarChart = ({ data }) => {
 
         const x = d3
             .scaleBand()
-            .domain(data.map((d) => d.interval))
+            .domain(data?.map((d) => d.interval))
             .rangeRound([margin.left, width - margin.right])
             .padding(0.1)
 
@@ -25,7 +25,9 @@ const BarChart = ({ data }) => {
             .rangeRound([height - margin.bottom, margin.top])
 
         const xAxis = (g) =>
-            g.attr("transform", `translate(0,${height - margin.bottom})`).call(
+            g
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .call(
                 d3
                     .axisBottom(x)
                     .tickValues(
@@ -34,17 +36,18 @@ const BarChart = ({ data }) => {
                             .filter((v) => x(v) !== undefined)
                     )
                     .tickSizeOuter(0)
-            )
+                )
                 .call((g) => {
                     g
                         .append("text")
                         .attr("x", width - margin.right)
-                        .attr("y", margin.bottom - 10)
+                        .attr("y", margin.bottom + 10)
                         .attr("fill", "steelBlue")
                         .style("font-size", "15px")
                         .style("text-anchor", "middle")
-                        .text("DATE")
+                        .text("Games")
                 })
+                .style("color", "steelblue")
 
 
         const y1Axis = (g) =>
@@ -87,15 +90,16 @@ const BarChart = ({ data }) => {
             .attr("fill", "steelBlue")
             .style('font-family', 'rubik')
             .style('font-size', "20px")
-            .text('WPM vs. Date')
+            .text('WPM vs. # of Games')
 
-    }, [data.length])
+    }, [data?.length])
 
-    return (<svg
+    return (
+    <svg
         ref={ref}
         style={{
             minHeight: "600px",
-            minWidth: "500px",
+            minWidth: "1000px",
             marginRight: "0px",
             marginLeft: "0px"
         }}>

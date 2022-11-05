@@ -11,10 +11,7 @@ import UserData from '../components/UserProfile/UserData'
 
 const UserProfile = () => {
     const [user, setUser] = useState()
-    const [perDayData, setPerDayData] = useState({
-        wpm: 0,
-        interval: 0
-    })
+    const [perDayData, setPerDayData] = useState([])
     const { id } = useParams()   
 
 
@@ -34,15 +31,22 @@ const UserProfile = () => {
             .catch(err => console.log(err))
     }, [])
 
-    useEffect(() => {
-        console.log(perDayData)
-    })
+    const submitUsername = (username) => {
+        axios.put(`http://localhost:8000/api/users/${id}`, {
+            username: username
+        })
+            .then(res => setUser({
+                ...user,
+                username: res.data.username
+            }))
+            .catch(err => console.log(err))
+    }
 
     return (
         <div>
             <NavBar />
             <Box className="user-profile">
-                <UserNav user={user} />
+                <UserNav user={user} sendUsername={submitUsername}/>
                 <UserData user={user} perDayData={perDayData} />
             </Box>
         </div>

@@ -39,6 +39,27 @@ h2 {
     margin: 20px 0;
 }
 
+.username {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content:center;
+}
+
+.edit {
+    width: 50px !important;
+    height: 50px !important;
+    padding: 10px;
+    border-radius: 5rem;
+    position: relative;
+    left: 30px;
+}
+.edit:hover {
+    cursor: pointer;
+    border-radius: 5rem;
+    background-color: rgba(10, 10, 10, 0.5);
+}
+
 .iconBox {
     background-color: red;
     margin: 0 auto;
@@ -63,12 +84,12 @@ img {
 .user-data {
     grid-column-start: 2;
     grid-column-end: 10;
-    padding: 100px 0 0 100px;
+    padding: 100px 0 100px 100px;
 }
 
 .table {
     margin: 0 !important;
-    width: 1000px !important;
+    width: 90% !important;
 }
 
 .table-container {

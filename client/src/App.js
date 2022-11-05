@@ -20,7 +20,6 @@ import { useState, useMemo, useEffect } from 'react'
 import { LoggedinContext } from './context/LoggedinContext'
 import { ColorModeContext } from './context/ColorModeContext'
 import UserProfile from "./views/UserProfile";
-import Beefit from "./components/Beefit";
 
 
 function App() {
@@ -75,7 +74,6 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/:id" element={<UserProfile />} />
-                <Route path="/beefit/:roomID" element={<Beefit />} />
               </Routes>
             </ThemeProvider>
           </ColorModeContext.Provider>

@@ -1,6 +1,4 @@
 import { amber, deepPurple, grey, blue, common } from '@mui/material/colors';
-import { stackOrderNone } from 'd3';
-
 
 const palette = {
     light: {
@@ -38,7 +36,7 @@ export const getDesignTokens = (mode) => ({
                 },
                 background: {
                     default: "#0a1929"
-                }
+                },
             }),
     },
     typography: {
@@ -188,6 +186,13 @@ export const getThemedComponents = (mode) => ({
                     styleOverrides: {
                         root: {
                             margin: "10px 0"
+                        }
+                    }
+                },
+                MuiOutlinedInput: {
+                    styleOverrides: {
+                        notchedOutline: {
+                            border: "2px solid black"
                         }
                     }
                 },

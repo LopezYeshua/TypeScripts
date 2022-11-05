@@ -4,13 +4,26 @@
     margin: 100px 0;
     width: 100vw;
     max-width: 1500px;
+    min-height: 400px;
     z-index: 0;
+
+    padding: 20px 10px;
 }
 
 .center {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.hero ~ .background {
+    position: relative;
+    top: -400px;
+    width: 100%;
+    min-width: 100px;
+    min-height: 400px;
+    height: 100%;
+    z-index: -1;
 }
 
 /* End of Hero CSS */
@@ -26,6 +39,7 @@
 /*! Start of friends container css */
 
 .friends {
+    padding: 20px 5px;
     width: 100vw;
     max-width: 1300px;
     display: flex;
@@ -45,6 +59,10 @@
 
 .block {
     display: block;
+}
+
+.tab-content {
+    padding: 20px 5px 0;
 }
 
 /*! End of friends container css */
