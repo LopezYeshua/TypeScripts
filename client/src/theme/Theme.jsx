@@ -1,4 +1,4 @@
-import { amber, deepPurple, grey, blue, common } from '@mui/material/colors';
+import { common } from '@mui/material/colors';
 
 const palette = {
     light: {
@@ -59,9 +59,9 @@ export const getThemedComponents = (mode) => ({
             ? {
                 MuiAppBar: {
                     styleOverrides: {
-                    root: {
+                        root: {
+                        },
                     },
-                },
                 },
                 MuiPaper: {
                     styleOverrides: {
@@ -81,6 +81,25 @@ export const getThemedComponents = (mode) => ({
                     styleOverrides: {
                         root: {
                             margin: "10px 0"
+                        }
+                    }
+                },
+                MuiOutlinedInput: {
+                    styleOverrides: {
+                        root: {
+                            "& $notchedOutline": {
+                                borderColor: common.black
+                            },
+                            "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
+                                borderColor: common.black,
+                                "@media (hover: none)": {
+                                    borderColor: common.black
+                                }
+                            },
+                            "&$focused $notchedOutline": {
+                                borderColor: common.black,
+                                borderWidth: 1
+                            }
                         }
                     }
                 },
@@ -123,7 +142,7 @@ export const getThemedComponents = (mode) => ({
                         {
                             props: { variant: 'outlined' },
                             style: {
-                                color: palette.light.primary.main,
+                                color: common.black,
                             },
                         },
                         {
@@ -162,9 +181,9 @@ export const getThemedComponents = (mode) => ({
             : {
                 MuiAppBar: {
                     styleOverrides: {
-                    root: {
+                        root: {
+                        },
                     },
-                },
                 },
                 MuiPaper: {
                     styleOverrides: {

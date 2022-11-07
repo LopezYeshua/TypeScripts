@@ -2,27 +2,24 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'
 import {
     TextField,
-    Paper,
-    Typography,
-    Box,
     Button,
     Container
 } from '@mui/material'
 import axios from 'axios';
 import { LoggedinContext } from '../context/LoggedinContext'
-import jwt from 'jwt-decode'
+import ErrorIcon from '@mui/icons-material/Error';
 import { useEffect } from 'react';
 
 const RegisterForm = () => {
-    const { loggedinInfo, setLoggedinInfo } = useContext(LoggedinContext)
-    const [errors, setErrors] = useState({})
+    const { setLoggedinInfo } = useContext(LoggedinContext)
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
     const [user, setUser] = useState({
         username: "",
         email: "",
         password: "",
         confirmPassword: ""
-    });
+    })
 
     // called from form submission
     const createUser = (e) => {
@@ -41,21 +38,29 @@ const RegisterForm = () => {
                     loggedinUsername: res.data.user.username,
                     loadingUser: false
                 })
-                const token = res.data.userToken;
                 navigate("/")
                 // sets the login info of the user through the context
             })
             .catch(err => {
                 const errorResponse = err.response.data.errors
-                console.log(errorResponse)
-                const errorObj = {}
-                if (!errorResponse) errorObj["emailExists"] = "User already exists"
-                for (const key in errorResponse) {
-                    errorObj[key] = errorResponse[key].message
+                const errorArr = []
+                if (!errorResponse) {
+                    errorArr.push("Email already exists")
+                    setErrors(errorArr)
                 }
-                setErrors(errorObj)
-            });
+                else {
+                    for (const key in errorResponse) {
+                        errorArr.push(errorResponse[key].message)
+                    }
+                    setErrors(errorArr)
+                }
+            })
     }
+
+    useEffect(() => {
+        console.log(errors)
+        console.log(errors.length)
+    }, [errors])
 
     const handleChange = e => {
         setUser({
@@ -66,54 +71,53 @@ const RegisterForm = () => {
     }
 
     return (
-        <Paper elevation={5}>
-            <Container>
-                <form onSubmit={createUser}>
-                    <Box>
-                        <TextField
-                            variant="outlined"
-                            label="username"
-                            name="username"
-                            onChange={handleChange} />
-                    </Box>
-                    <Box>
-                        <TextField
-                            variant="outlined"
-                            label="email"
-                            name="email"
-                            onChange={handleChange}
-                            value={user.email}
-                        />
-                    </Box>
-                    <Box>
-                        {errors?.emailExists ? (
-                            <span>{errors.emailExists}</span>
-                        ) : ""}
-                    </Box>
-                    <Box>
-                        <TextField
-                            variant="outlined"
-                            label="password"
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            value={user.password}
-                        />
-                    </Box>
-                    <Box>
-                        <TextField
-                            variant="outlined"
-                            label="confirm Password"
-                            type="password"
-                            name="confirmPassword"
-                            onChange={handleChange}
-                            value={user.confirmPassword}
-                        />
-                    </Box>
-                    <Button type="submit" variant="outlined">Register</Button>
-                </form>
-            </Container>
-        </Paper>
+        <Container>
+            <span className={errors.length >= 1 ? "errMsg" : null}>
+                {errors.length >= 1 ? errors.map((error, index) => {
+                    return (
+                        <p>
+                            <p>{error}</p>
+                        </p>
+                    )
+                    }) : null}
+            </span>
+            <form className="form-width" onSubmit={createUser}>
+                    <TextField
+                        variant="outlined"
+                        label="username"
+                        name="username"
+                        autoComplete="off"
+                        value={user.username}
+                        onChange={handleChange} />
+                    <TextField
+                        label="email"
+                        name="email"
+                        onChange={handleChange}
+                        value={user.email}
+                    />
+                {errors[0] === "Email already exists" ? (
+                    <span className="email-err-msg">
+                        <ErrorIcon/>
+                        <p>{errors}</p>
+                    </span>
+                ) : null}
+                    <TextField
+                        label="password"
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        value={user.password}
+                    />
+                    <TextField
+                        label="confirm Password"
+                        type="password"
+                        name="confirmPassword"
+                        onChange={handleChange}
+                        value={user.confirmPassword}
+                    />
+                <Button type="submit" variant="outlined">Register</Button>
+            </form>
+        </Container>
     )
 }
 export default RegisterForm

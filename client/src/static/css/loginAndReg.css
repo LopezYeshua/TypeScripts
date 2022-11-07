@@ -1,0 +1,24 @@
+.email-err-msg {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    padding: auto 0;
+    border: 3px solid #ff073a;
+    border-radius: .2rem;
+    background: #ff073a30;
+}
+
+.errMsg {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #ff073a;
+    border-radius: .2rem;
+    background: #ff073a30;
+}
+
+.form-width {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin: 0 auto;
+}
